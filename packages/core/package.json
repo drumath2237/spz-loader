@@ -16,9 +16,12 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "check": "biome check ./lib ./src",
+    "check:write": "biome check --write ./lib ./src"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/node": "^22.9.0",
     "typescript": "~5.6.3",
     "vite": "^5.4.9",
