@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "@spz-wasm/core",
   "private": true,
   "version": "0.0.0",
   "type": "module",
