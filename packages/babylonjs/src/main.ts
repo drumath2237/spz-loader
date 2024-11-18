@@ -1,8 +1,11 @@
 import "./style.css";
 import { dumBabylon } from "../lib/";
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
+const app = document.querySelector<HTMLDivElement>("#app");
+if (app) {
+  app.innerHTML = `
   <div>
     <p>babylon:${dumBabylon()}</p>
   </div>
 `;
+}
