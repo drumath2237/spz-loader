@@ -1,5 +1,5 @@
 import "./style.css";
-import { dummy } from "../lib/main";
+import { dummy } from "../lib/";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
