@@ -9,6 +9,10 @@ importers:
   .: {}
 
   packages/babylonjs:
+    dependencies:
+      '@spz-wasm/core':
+        specifier: workspace:^
+        version: link:../core
     devDependencies:
       '@types/node':
         specifier: ^22.9.0

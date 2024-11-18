@@ -1,8 +1,8 @@
 import "./style.css";
-import { dummy } from "../lib/";
+import { dumBabylon } from "../lib/";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
-    <p>${dummy()}</p>
+    <p>babylon:${dumBabylon()}</p>
   </div>
 `;
