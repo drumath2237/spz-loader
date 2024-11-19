@@ -28,6 +28,6 @@
     "vite-plugin-dts": "^4.3.0"
   },
   "dependencies": {
-    "@spz-wasm/core": "workspace:^"
+    "@spz-loader/core": "workspace:^"
   }
 }
