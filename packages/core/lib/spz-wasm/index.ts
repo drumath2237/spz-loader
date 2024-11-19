@@ -1,10 +1,7 @@
-import Module from "./build/main.mjs";
+import MainModuleFactory from "./build/main"
 
-/**
- * @type {()=>Promise<void>}
- */
 export const main = async () => {
-  const wasmModule = await Module();
+  const wasmModule = await MainModuleFactory();
 
   const res = await fetch("../lib/spz-wasm/spz/samples/racoonfamily.spz").then(
     (d) => d.arrayBuffer(),

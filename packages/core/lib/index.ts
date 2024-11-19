@@ -1,5 +1,4 @@
-// @ts-ignore
-import { main } from "./spz-wasm/index.mjs";
+import { main } from "./spz-wasm";
 
 export const dummy = (): number => {
   return 42;
