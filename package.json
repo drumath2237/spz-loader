@@ -6,7 +6,14 @@
   "scripts": {
     "check": "pnpm -r --parallel run check",
     "check:write": "pnpm -r --parallel run check:write",
-    "build": "pnpm -r run build"
+    "build:vite": "pnpm -r run build",
+    "build:wasm": "pnpm -F @spz-loader/core run build:docker",
+    "build:all": "pnpm run build:wasm && pnpm run build:vite",
+    "build": "pnpm run build:vite"
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8"
   },
   "keywords": [],
   "author": "",
