@@ -1,11 +1,13 @@
-import { readFile } from "fs/promises";
 import Module from "./build/main.mjs";
 
-const main = async () => {
+/**
+ * @type {()=>Promise<void>}
+ */
+export const main = async () => {
   const wasmModule = await Module();
 
-  const gsFile = await readFile("./spz/samples/racoonfamily.spz");
-  const gsBinData = new Uint8Array(gsFile.buffer)
+  const res = await fetch("../lib/spz-wasm/spz/samples/racoonfamily.spz").then(d => d.arrayBuffer())
+  const gsBinData = new Uint8Array(res)
 
   let gsPtr = null;
 
@@ -34,6 +36,3 @@ const main = async () => {
 
 
 };
-
-main();
-
