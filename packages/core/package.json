@@ -17,6 +17,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:docker": "docker run --rm -v $(pwd)/lib/spz-wasm/:/src emscripten/emsdk ./build.sh",
     "check": "biome check ./lib ./src",
     "check:write": "biome check --write ./lib ./src"
   },

@@ -1,5 +1,5 @@
 import "./style.css";
-import { dummy } from "../lib/";
+import { dummy, spzMain } from "../lib/";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 if (app) {
@@ -9,3 +9,9 @@ if (app) {
   </div>
 `;
 }
+
+const main = async () => {
+  await spzMain();
+};
+
+main().then(() => console.log("done"));
