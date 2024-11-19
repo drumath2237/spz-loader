@@ -19,8 +19,10 @@ GaussianCloud load_spz(const int gsPtr, const int length)
 {
   auto pointer = (uint8_t *)gsPtr;
   auto spzBuffer = vector<uint8_t>(pointer, pointer + length);
+  auto packedGS = spz::loadSpzPacked(spzBuffer);
+  auto gsCloud = spz::unpackGaussians(packedGS);
 
-  return spz::loadSpz(spzBuffer);
+  return gsCloud;
 }
 
 int vf32_ptr(vector<float> &v)

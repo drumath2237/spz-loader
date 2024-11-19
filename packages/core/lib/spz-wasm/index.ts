@@ -13,14 +13,22 @@ import {
 export const loadSpz = async (spzData: Uint8Array): Promise<GaussianCloud> => {
   const wasmModule = await MainModuleFactory();
 
-  const pointer = wasmModule._malloc(
-    Uint8Array.BYTES_PER_ELEMENT * spzData.length,
-  );
-  wasmModule.HEAPU8.set(spzData, pointer / Uint8Array.BYTES_PER_ELEMENT);
+  let pointer: number | null = null;
 
-  const rawGsCloud = wasmModule.load_spz(pointer, spzData.length);
-  const gaussianCloud = createGaussianCloudFromRaw(wasmModule, rawGsCloud);
-  disposeRawGSCloud(rawGsCloud);
+  try {
+    pointer = wasmModule._malloc(Uint8Array.BYTES_PER_ELEMENT * spzData.length);
+    if (pointer === null) {
+      throw new Error("could'nt allocate memory");
+    }
 
-  return gaussianCloud;
+    wasmModule.HEAPU8.set(spzData, pointer / Uint8Array.BYTES_PER_ELEMENT);
+
+    const rawGsCloud = wasmModule.load_spz(pointer, spzData.length);
+    const gaussianCloud = createGaussianCloudFromRaw(wasmModule, rawGsCloud);
+    disposeRawGSCloud(rawGsCloud);
+
+    return gaussianCloud;
+  } catch (error) {
+    throw error as Error;
+  }
 };
