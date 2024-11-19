@@ -1,4 +1,4 @@
-import { dummy } from "@spz-wasm/core";
+import { dummy } from "@spz-loader/core"
 
 export const dumBabylon = (): number => {
   return dummy();
