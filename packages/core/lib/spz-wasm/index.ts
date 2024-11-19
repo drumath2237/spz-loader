@@ -1,38 +1,26 @@
-import MainModuleFactory from "./build/main"
+import MainModuleFactory from "./build/main";
+import {
+  createGaussianCloudFromRaw,
+  disposeRawGSCloud,
+  type GaussianCloud,
+} from "./gaussianCloud";
 
-export const main = async () => {
+/**
+ * decode .spz data to GaussianCloud
+ * @param spzData .spz file binary data
+ * @returns Gaussian Cloud
+ */
+export const loadSpz = async (spzData: Uint8Array): Promise<GaussianCloud> => {
   const wasmModule = await MainModuleFactory();
 
-  const res = await fetch("../lib/spz-wasm/spz/samples/racoonfamily.spz").then(
-    (d) => d.arrayBuffer(),
+  const pointer = wasmModule._malloc(
+    Uint8Array.BYTES_PER_ELEMENT * spzData.length,
   );
-  const gsBinData = new Uint8Array(res);
+  wasmModule.HEAPU8.set(spzData, pointer / Uint8Array.BYTES_PER_ELEMENT);
 
-  let gsPtr = null;
+  const rawGsCloud = wasmModule.load_spz(pointer, spzData.length);
+  const gaussianCloud = createGaussianCloudFromRaw(wasmModule, rawGsCloud);
+  disposeRawGSCloud(rawGsCloud);
 
-  try {
-    gsPtr = wasmModule._malloc(Uint8Array.BYTES_PER_ELEMENT * gsBinData.length);
-    if (gsPtr == null) {
-      throw new Error("allocation failed");
-    }
-
-    wasmModule.HEAPU8.set(gsBinData, gsPtr / Uint8Array.BYTES_PER_ELEMENT);
-
-    const gsCloud = wasmModule.load_spz(gsPtr, gsBinData.length);
-    console.log(gsCloud);
-
-    const positionPtr = wasmModule.vf32_ptr(gsCloud.positions);
-    const positionBuf = new Float32Array(
-      wasmModule.HEAP32.buffer,
-      positionPtr,
-      gsCloud.positions.size(),
-    );
-    console.log(positionBuf);
-  } catch (e) {
-    console.error(e);
-  } finally {
-    if (gsPtr !== null) {
-      wasmModule._free(gsPtr);
-    }
-  }
+  return gaussianCloud;
 };

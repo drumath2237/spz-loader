@@ -36,7 +36,7 @@ EMSCRIPTEN_BINDINGS(my_module)
   register_vector<float>("VectorFloat32");
   register_vector<uint8_t>("VectorUInt8T");
 
-  value_object<GaussianCloud>("GaussianCloud")
+  value_object<GaussianCloud>("RawGaussianCloud")
       .field("numPoints", &GaussianCloud::numPoints)
       .field("shDegree", &GaussianCloud::shDegree)
       .field("antialiased", &GaussianCloud::antialiased)
