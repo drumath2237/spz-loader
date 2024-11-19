@@ -14,7 +14,7 @@ importers:
 
   packages/babylonjs:
     dependencies:
-      '@spz-wasm/core':
+      '@spz-loader/core':
         specifier: workspace:^
         version: link:../core
     devDependencies:
