@@ -1,4 +1,4 @@
-import type { MainModule, VectorFloat32 } from "./build/main";
+import type { MainModule, VectorFloat32, VectorUInt8T } from "./build/main";
 
 /**
  * create new Float32Array from cpp FloatVector
@@ -13,8 +13,21 @@ export const floatVectorToFloatArray = (
   const pointer = wasmModule.vf32_ptr(vec);
   const size = vec.size();
 
-  const buffer = new Float32Array(wasmModule.HEAPF32, pointer, size);
+  const buffer = new Float32Array(wasmModule.HEAPF32.buffer, pointer, size);
   const copiedBuffer = new Float32Array(buffer);
+
+  return copiedBuffer;
+};
+
+export const uint8VecToArray = (
+  wasmModule: MainModule,
+  vec: VectorUInt8T,
+): Uint8Array => {
+  const pointer = wasmModule.vf32_ptr(vec);
+  const size = vec.size();
+
+  const buffer = new Uint8Array(wasmModule.HEAPU8.buffer, pointer, size);
+  const copiedBuffer = new Uint8Array(buffer);
 
   return copiedBuffer;
 };

@@ -1,5 +1,5 @@
 import type { MainModule, RawGaussianCloud } from "./build/main";
-import { floatVectorToFloatArray } from "./cppBufferUtil";
+import { floatVectorToFloatArray, uint8VecToArray } from "./cppBufferUtil";
 
 export type GaussianCloud = {
   numPoints: number;
@@ -9,7 +9,7 @@ export type GaussianCloud = {
   scales: Float32Array;
   rotations: Float32Array;
   alphas: Float32Array;
-  colors: Float32Array;
+  colors: Uint8Array;
   sh: Float32Array;
 };
 
@@ -31,7 +31,7 @@ export const createGaussianCloudFromRaw = (
     scales: floatVectorToFloatArray(wasmModule, raw.scales),
     rotations: floatVectorToFloatArray(wasmModule, raw.rotations),
     alphas: floatVectorToFloatArray(wasmModule, raw.alphas),
-    colors: floatVectorToFloatArray(wasmModule, raw.colors),
+    colors: uint8VecToArray(wasmModule, raw.colors),
     sh: floatVectorToFloatArray(wasmModule, raw.sh),
   };
 };
