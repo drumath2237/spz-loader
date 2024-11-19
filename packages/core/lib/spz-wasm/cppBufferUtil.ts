@@ -13,7 +13,7 @@ export const floatVectorToFloatArray = (
   const pointer = wasmModule.vf32_ptr(vec);
   const size = vec.size();
 
-  const buffer = new Float32Array(wasmModule.HEAP32, pointer, size);
+  const buffer = new Float32Array(wasmModule.HEAPF32, pointer, size);
   const copiedBuffer = new Float32Array(buffer);
 
   return copiedBuffer;
