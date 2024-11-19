@@ -2,9 +2,7 @@
   "image": "emscripten/emsdk",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-vscode.cpptools-extension-pack"
-      ]
+      "extensions": ["ms-vscode.cpptools-extension-pack"]
     }
   }
 }
