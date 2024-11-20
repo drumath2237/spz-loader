@@ -1,1 +1,1 @@
-export { loadSpz } from "./spz-wasm";
+export * from "./spz-wasm";
