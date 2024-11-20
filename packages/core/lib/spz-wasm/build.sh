@@ -13,6 +13,7 @@ em++ main.cpp \
  -o ./build/main.mjs \
  -s USE_ZLIB=1 \
  -s WASM=1 \
+ -s SINGLE_FILE=1 \
  -s MODULARIZE=1 \
  -s EXPORT_ES6=1 \
  -s EXPORT_NAME="spzwasm" \
