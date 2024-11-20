@@ -1,6 +1,6 @@
 import "./style.css";
-import { createCube, dumBabylon } from "../lib/";
 import { Engine, Scene, Vector3 } from "@babylonjs/core";
+import { createCube } from "../lib/";
 
 const main = async () => {
   const renderCanvas =
