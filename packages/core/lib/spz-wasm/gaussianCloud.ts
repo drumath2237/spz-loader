@@ -1,5 +1,5 @@
 import type { MainModule, RawGaussianCloud } from "./build/main";
-import { floatVectorToFloatArray, uint8VecToArray } from "./cppBufferUtil";
+import { floatVectorToFloatArray } from "./cppBufferUtil";
 
 export type GaussianCloud = {
   numPoints: number;
@@ -12,6 +12,8 @@ export type GaussianCloud = {
   colors: Uint8Array;
   sh: Float32Array;
 };
+
+const sigmoid = (x: number) => 1 / (1 + Math.exp(-x));
 
 /**
  * create new gaussian cloud from raw
@@ -30,8 +32,16 @@ export const createGaussianCloudFromRaw = (
     positions: floatVectorToFloatArray(wasmModule, raw.positions),
     scales: floatVectorToFloatArray(wasmModule, raw.scales).map(Math.exp),
     rotations: floatVectorToFloatArray(wasmModule, raw.rotations),
-    alphas: uint8VecToArray(wasmModule, raw.alphas),
-    colors: uint8VecToArray(wasmModule, raw.colors),
+    alphas: new Uint8Array(
+      floatVectorToFloatArray(wasmModule, raw.alphas)
+        .map((n) => sigmoid(n) * 255.0)
+        .values(),
+    ),
+    colors: new Uint8Array(
+      floatVectorToFloatArray(wasmModule, raw.colors)
+        .map((n) => (n * 0.15 + 0.5) * 255)
+        .values(),
+    ),
     sh: floatVectorToFloatArray(wasmModule, raw.sh),
   };
 };

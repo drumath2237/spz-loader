@@ -42,7 +42,7 @@ const _convertGaussianCloudToSplatBuffer = (
   for (let i = 0; i < splatCount; i++) {
     position[i * 8 + 0] = gsCloud.positions[i * 3 + 0];
     position[i * 8 + 1] = -gsCloud.positions[i * 3 + 1];
-    position[i * 8 + 2] = gsCloud.positions[i * 3 + 2];
+    position[i * 8 + 2] = -gsCloud.positions[i * 3 + 2];
   }
 
   // colors
