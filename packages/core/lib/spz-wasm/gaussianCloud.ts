@@ -8,7 +8,7 @@ export type GaussianCloud = {
   positions: Float32Array;
   scales: Float32Array;
   rotations: Float32Array;
-  alphas: Float32Array;
+  alphas: Uint8Array;
   colors: Uint8Array;
   sh: Float32Array;
 };
@@ -28,9 +28,9 @@ export const createGaussianCloudFromRaw = (
     shDegree: raw.shDegree,
     antialiased: raw.antialiased,
     positions: floatVectorToFloatArray(wasmModule, raw.positions),
-    scales: floatVectorToFloatArray(wasmModule, raw.scales),
+    scales: floatVectorToFloatArray(wasmModule, raw.scales).map(Math.exp),
     rotations: floatVectorToFloatArray(wasmModule, raw.rotations),
-    alphas: floatVectorToFloatArray(wasmModule, raw.alphas),
+    alphas: uint8VecToArray(wasmModule, raw.alphas),
     colors: uint8VecToArray(wasmModule, raw.colors),
     sh: floatVectorToFloatArray(wasmModule, raw.sh),
   };
