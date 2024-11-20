@@ -16,9 +16,6 @@ const main = async () => {
 
   scene.createDefaultCameraOrLight(true, true, true);
 
-  const cube = MeshBuilder.CreateBox("box", { size: 0.1 });
-  cube.position = new Vector3(0, 0.05, 0);
-
   const spzData = await fetch(spzPath).then((res) => res.arrayBuffer());
   await createGaussianSplattingFromSpz(spzData);
 
