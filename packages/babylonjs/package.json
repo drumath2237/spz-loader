@@ -28,6 +28,7 @@
     "vite-plugin-dts": "^4.3.0"
   },
   "dependencies": {
+    "@babylonjs/core": "^7.34.3",
     "@spz-loader/core": "workspace:^"
   }
 }
