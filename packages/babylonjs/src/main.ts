@@ -1,11 +1,24 @@
 import "./style.css";
-import { dumBabylon } from "../lib/";
+import { createCube, dumBabylon } from "../lib/";
+import { Engine, Scene, Vector3 } from "@babylonjs/core";
 
-const app = document.querySelector<HTMLDivElement>("#app");
-if (app) {
-  app.innerHTML = `
-  <div>
-    <p>babylon:${dumBabylon()}</p>
-  </div>
-`;
-}
+const main = async () => {
+  const renderCanvas =
+    document.querySelector<HTMLCanvasElement>("#renderCanvas");
+  if (!renderCanvas) {
+    return;
+  }
+
+  const engine = new Engine(renderCanvas);
+  const scene = new Scene(engine);
+
+  scene.createDefaultCameraOrLight(true, true, true);
+
+  const cube = createCube(0.5);
+  cube.position = new Vector3(0, 0.25, 0);
+
+  engine.runRenderLoop(() => scene.render());
+  window.addEventListener("resize", () => engine.resize());
+};
+
+main();
