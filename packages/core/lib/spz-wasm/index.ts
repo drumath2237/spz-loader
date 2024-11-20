@@ -1,8 +1,8 @@
 import MainModuleFactory from "./build/main";
 import {
+  type GaussianCloud,
   createGaussianCloudFromRaw,
   disposeRawGSCloud,
-  type GaussianCloud,
 } from "./gaussianCloud";
 
 /**
