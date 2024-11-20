@@ -19,8 +19,9 @@ GaussianCloud load_spz(const int gsPtr, const int length)
 {
   auto pointer = (uint8_t *)gsPtr;
   auto spzBuffer = vector<uint8_t>(pointer, pointer + length);
+  auto gsCloud = spz::loadSpz(spzBuffer);
 
-  return spz::loadSpz(spzBuffer);
+  return gsCloud;
 }
 
 int vf32_ptr(vector<float> &v)
@@ -33,10 +34,10 @@ EMSCRIPTEN_BINDINGS(my_module)
   emscripten::function("load_spz", &load_spz, allow_raw_pointers());
   emscripten::function("vf32_ptr", &vf32_ptr, allow_raw_pointers());
 
-  register_vector<float>("vector<float>");
-  register_vector<uint8_t>("vector<uint8_t>");
+  register_vector<float>("VectorFloat32");
+  register_vector<uint8_t>("VectorUInt8T");
 
-  value_object<GaussianCloud>("GaussianCloud")
+  value_object<GaussianCloud>("RawGaussianCloud")
       .field("numPoints", &GaussianCloud::numPoints)
       .field("shDegree", &GaussianCloud::shDegree)
       .field("antialiased", &GaussianCloud::antialiased)
