@@ -62,10 +62,10 @@ const _convertGaussianCloudToSplatBuffer = (
 
   // rotations
   for (let i = 0; i < splatCount; i++) {
-    rot[i * 32 + 28 + 1] = gsCloud.rotations[i * 4 + 0] * 127.5;
-    rot[i * 32 + 28 + 2] = gsCloud.rotations[i * 4 + 1] * 127.5;
-    rot[i * 32 + 28 + 3] = gsCloud.rotations[i * 4 + 2] * 127.5;
-    rot[i * 32 + 28 + 0] = gsCloud.rotations[i * 4 + 3] * 127.5;
+    rot[i * 32 + 28 + 1] = gsCloud.rotations[i * 4 + 0] * 127.5 + 127.5;
+    rot[i * 32 + 28 + 2] = gsCloud.rotations[i * 4 + 1] * 127.5 + 127.5;
+    rot[i * 32 + 28 + 3] = gsCloud.rotations[i * 4 + 2] * 127.5 + 127.5;
+    rot[i * 32 + 28 + 0] = gsCloud.rotations[i * 4 + 3] * 127.5 + 127.5;
   }
 
   return buffer;
