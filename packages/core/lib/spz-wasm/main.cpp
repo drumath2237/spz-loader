@@ -20,6 +20,7 @@ GaussianCloud load_spz(const int gsPtr, const int length)
   auto pointer = (uint8_t *)gsPtr;
   auto spzBuffer = vector<uint8_t>(pointer, pointer + length);
   auto gsCloud = spz::loadSpz(spzBuffer);
+  gsCloud.rotate180DegAboutX();
 
   return gsCloud;
 }

@@ -1,6 +1,8 @@
 import "./style.css";
-import { Engine, Scene, Vector3 } from "@babylonjs/core";
-import { createCube } from "../lib/";
+import { Engine, Scene } from "@babylonjs/core";
+import { createGaussianSplattingFromSpz } from "../lib/";
+
+import spzPath from "../../core/assets/guitarroom.spz?url";
 
 const main = async () => {
   const renderCanvas =
@@ -14,8 +16,8 @@ const main = async () => {
 
   scene.createDefaultCameraOrLight(true, true, true);
 
-  const cube = createCube(0.5);
-  cube.position = new Vector3(0, 0.25, 0);
+  const spzData = await fetch(spzPath).then((res) => res.arrayBuffer());
+  await createGaussianSplattingFromSpz(spzData);
 
   engine.runRenderLoop(() => scene.render());
   window.addEventListener("resize", () => engine.resize());
