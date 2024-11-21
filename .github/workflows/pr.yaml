@@ -1,36 +1,14 @@
 name: on pull request
 on:
   pull_request:
-    branches: main
+    branches:
+      - main
+
+env:
+  EM_VERSION: 3.1.72
 
 jobs:
-  # check:
-  #   runs-on: ubuntu-22.04
-  #   strategy:
-  #     matrix:
-  #       node-version: [20]
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - name: Install pnpm
-  #       uses: pnpm/action-setup@v4
-  #       with:
-  #         version: 9
-
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         cache: "pnpm"
-
-  #     - name: Install dependencies
-  #       run: pnpm install
-
-  #     - name: Check Lint and Format
-  #       run: pnpm check
-
-  build:
-    # needs: check
+  check:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -49,16 +27,30 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
 
-      - run: git submodule update --init --recursive
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check Lint and Format
+        run: pnpm check
+
+  build:
+    needs: check
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v4
 
       - uses: mymindstorm/setup-emsdk@v14
         with:
-          version: 3.1.72
+          version: ${{env.EM_VERSION}}
 
-      - run: |
-          npm install -g typescript
+      - name: resolve git submodule
+        run: git submodule update --init --recursive
 
-      - run: |
+      - name: Build spz wasm binary
+        run: |
           cd ./packages/core/lib/spz-wasm
           mkdir ./build
           em++ main.cpp \
@@ -75,6 +67,17 @@ jobs:
             -s ALLOW_MEMORY_GROWTH \
             -s EXPORTED_FUNCTIONS="['_malloc', '_free']"
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
       - name: Install dependencies
         run: |
           pnpm install
@@ -82,11 +85,10 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # - name: Build WASM and Vite projects
-      #   run: |
-      #     sudo chmod +x ./packages/core/lib/spz-wasm/build.sh
-      #     docker run --rm --user root -v \
-      #       $(pwd)/packages/core/lib/spz-wasm/:/src \
-      #       -u $(id -u):$(id -g) \
-      #       emscripten/emsdk \
-      #       /bin/bash -ci "./build.sh"
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dists
+          path: |
+            ./packages/core/dist
+            ./packages/babylonjs/dist
