@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo chown -R 1001:127 "/.npm"
+
 if [ ! -d build ]; then
   mkdir build
 fi
