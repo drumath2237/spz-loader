@@ -58,7 +58,7 @@ jobs:
         run: |
           sudo chmod +x ./packages/core/lib/spz-wasm/build.sh
           docker run --rm -v \
-            $(pwd)/lib/spz-wasm/:/src \
+            $(pwd)/packages/core/lib/spz-wasm/:/src \
             -u $(id -u):$(id -g) \
             emscripten/emsdk \
-            ./build.sh
+            /bin/bash -ci "./build.sh"
