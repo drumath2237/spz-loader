@@ -54,5 +54,5 @@ jobs:
 
       - name: Build WASM and Vite projects
         run: |
-          sudo chmod +x ./build.sh
+          sudo chmod +x ./lib/spz-wasm//build.sh
           pnpm build:all
