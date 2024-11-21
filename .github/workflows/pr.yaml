@@ -51,14 +51,18 @@ jobs:
 
       - run: git submodule update --init --recursive
 
+      - uses: mymindstorm/setup-emsdk@v14
+
+      - run: emcc -v
+
       # - name: Install dependencies
       #   run: pnpm install
 
-      - name: Build WASM and Vite projects
-        run: |
-          sudo chmod +x ./packages/core/lib/spz-wasm/build.sh
-          docker run --rm --user root -v \
-            $(pwd)/packages/core/lib/spz-wasm/:/src \
-            -u $(id -u):$(id -g) \
-            emscripten/emsdk \
-            /bin/bash -ci "./build.sh"
+      # - name: Build WASM and Vite projects
+      #   run: |
+      #     sudo chmod +x ./packages/core/lib/spz-wasm/build.sh
+      #     docker run --rm --user root -v \
+      #       $(pwd)/packages/core/lib/spz-wasm/:/src \
+      #       -u $(id -u):$(id -g) \
+      #       emscripten/emsdk \
+      #       /bin/bash -ci "./build.sh"
