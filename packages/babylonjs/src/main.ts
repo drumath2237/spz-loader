@@ -1,5 +1,5 @@
 import "./style.css";
-import { Engine, MeshBuilder, Scene, Vector3 } from "@babylonjs/core";
+import { Engine, Scene } from "@babylonjs/core";
 import { createGaussianSplattingFromSpz } from "../lib/";
 
 import spzPath from "../../core/assets/guitarroom.spz?url";

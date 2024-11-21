@@ -1,5 +1,5 @@
 import { GaussianSplattingMesh, type Scene } from "@babylonjs/core";
-import { loadSpz, type GaussianCloud } from "@spz-loader/core";
+import { type GaussianCloud, loadSpz } from "@spz-loader/core";
 
 export const createGaussianSplattingFromSpz = async (
   data: ArrayBuffer,
