@@ -1,17 +1,10 @@
 #!/bin/bash
-echo "aa"
 
 if [ ! -d build ]; then
   mkdir build
 fi
 
-sudo mkdir -p /.npm && sudo chmod -R 777 /.npm
-
-echo "bbb"
-
 npm install -g typescript
-
-echo "cc"
 
 em++ main.cpp \
  --std=c++17 \

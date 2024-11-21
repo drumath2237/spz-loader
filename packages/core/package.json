@@ -18,7 +18,6 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:docker": "docker run --rm -v $(pwd)/lib/spz-wasm/:/src emscripten/emsdk ./build.sh",
-    "build:docker_ci": "docker run --rm -v $(pwd)/lib/spz-wasm/:/src -u $(id -u):$(id -g) emscripten/emsdk /bin/bash -ci \"sudo chown -R 1001:127 /.npm && ./build.sh\"",
     "check": "biome check ./lib ./src",
     "check:write": "biome check --write ./lib ./src"
   },
