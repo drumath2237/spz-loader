@@ -61,4 +61,4 @@ jobs:
             $(pwd)/lib/spz-wasm/:/src \
             -u $(id -u):$(id -g) \
             emscripten/emsdk \
-            /bin/bash -ci "sudo chown -R 1001:127 /.npm && ./build.sh"
+            /bin/bash -ci "chown -R 1001:127 /.npm && ./build.sh"
