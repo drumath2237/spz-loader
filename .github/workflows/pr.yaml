@@ -57,7 +57,7 @@ jobs:
       - name: Build WASM and Vite projects
         run: |
           sudo chmod +x ./packages/core/lib/spz-wasm/build.sh
-          docker run --rm -v \
+          docker run --rm --user root -v \
             $(pwd)/packages/core/lib/spz-wasm/:/src \
             -u $(id -u):$(id -g) \
             emscripten/emsdk \
