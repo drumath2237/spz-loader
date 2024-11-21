@@ -53,4 +53,4 @@ jobs:
         run: pnpm install
 
       - name: Build WASM and Vite projects
-        run: pnpm check
+        run: pnpm build:all
