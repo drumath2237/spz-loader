@@ -56,6 +56,9 @@ jobs:
 
       - name: Build WASM and Vite projects
         run: |
-          sudo chown -R 1001:127 "/.npm"
           sudo chmod +x ./packages/core/lib/spz-wasm/build.sh
-          pnpm build:all
+          docker run --rm -v \
+            $(pwd)/lib/spz-wasm/:/src \
+            -u $(id -u):$(id -g) \
+            emscripten/emsdk \
+            /bin/bash -ci \"sudo chown -R 1001:127 /.npm && ./build.sh\"

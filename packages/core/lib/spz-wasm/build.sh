@@ -1,7 +1,4 @@
 #!/bin/bash
-
-sudo chown -R 1001:127 "/.npm"
-
 echo "aa"
 
 if [ ! -d build ]; then
