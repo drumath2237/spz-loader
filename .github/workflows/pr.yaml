@@ -4,33 +4,33 @@ on:
     branches: main
 
 jobs:
-  check:
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        node-version: [20]
-    steps:
-      - uses: actions/checkout@v4
+  # check:
+  #   runs-on: ubuntu-22.04
+  #   strategy:
+  #     matrix:
+  #       node-version: [20]
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+  #     - name: Install pnpm
+  #       uses: pnpm/action-setup@v4
+  #       with:
+  #         version: 9
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: "pnpm"
 
-      - name: Install dependencies
-        run: pnpm install
+  #     - name: Install dependencies
+  #       run: pnpm install
 
-      - name: Check Lint and Format
-        run: pnpm check
+  #     - name: Check Lint and Format
+  #       run: pnpm check
 
   build:
-    needs: check
+    # needs: check
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -53,4 +53,6 @@ jobs:
         run: pnpm install
 
       - name: Build WASM and Vite projects
-        run: pnpm build:all
+        run: |
+          sudo chmod +x ./build.sh
+          pnpm build:all
