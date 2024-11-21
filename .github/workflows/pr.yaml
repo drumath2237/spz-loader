@@ -49,10 +49,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
 
+      - run: git submodule update --init --recursive
+
       - name: Install dependencies
         run: pnpm install
 
       - name: Build WASM and Vite projects
         run: |
+          sudo chown -R 1001:127 "/.npm"
           sudo chmod +x ./packages/core/lib/spz-wasm/build.sh
           pnpm build:all
