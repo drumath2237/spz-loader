@@ -52,6 +52,9 @@ jobs:
       - run: git submodule update --init --recursive
 
       - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.72
+          actions-cache-folder: 'emsdk-cache'
 
       - run: |
           npm install -g typescript
@@ -74,6 +77,8 @@ jobs:
       - name: Install dependencies
         run: |
           cd ../../../../
+          pwd
+          ls -la
           pnpm install
 
       - name: Build
