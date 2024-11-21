@@ -5,7 +5,7 @@ if [ ! -d build ]; then
   mkdir build
 fi
 
-mkdir -p /.npm && chmod -R 777 /.npm
+sudo mkdir -p /.npm && sudo chmod -R 777 /.npm
 
 echo "bbb"
 
