@@ -2,11 +2,17 @@
 
 sudo chown -R 1001:127 "/.npm"
 
+echo "aa"
+
 if [ ! -d build ]; then
   mkdir build
 fi
 
+echo "bbb"
+
 npm install -g typescript
+
+echo "cc"
 
 em++ main.cpp \
  --std=c++17 \
