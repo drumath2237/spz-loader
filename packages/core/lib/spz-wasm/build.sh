@@ -5,6 +5,8 @@ if [ ! -d build ]; then
   mkdir build
 fi
 
+mkdir -p /.npm && chmod -R 777 /.npm
+
 echo "bbb"
 
 npm install -g typescript
