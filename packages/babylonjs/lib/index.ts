@@ -47,10 +47,10 @@ const _convertGaussianCloudToSplatBuffer = (
 
   // colors
   for (let i = 0; i < splatCount; i++) {
-    rgba[i * 32 + 24 + 0] = gsCloud.colors[i * 3 + 0];
-    rgba[i * 32 + 24 + 1] = gsCloud.colors[i * 3 + 1];
-    rgba[i * 32 + 24 + 2] = gsCloud.colors[i * 3 + 2];
-    rgba[i * 32 + 24 + 3] = gsCloud.alphas[i];
+    rgba[i * 32 + 24 + 0] = gsCloud.colors[i * 3 + 0] * 255.0;
+    rgba[i * 32 + 24 + 1] = gsCloud.colors[i * 3 + 1] * 255.0;
+    rgba[i * 32 + 24 + 2] = gsCloud.colors[i * 3 + 2] * 255.0;
+    rgba[i * 32 + 24 + 3] = gsCloud.alphas[i] * 255.0;
   }
 
   // scales

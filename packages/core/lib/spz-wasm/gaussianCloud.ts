@@ -8,12 +8,14 @@ export type GaussianCloud = {
   positions: Float32Array;
   scales: Float32Array;
   rotations: Float32Array;
-  alphas: Uint8ClampedArray;
-  colors: Uint8ClampedArray;
+  alphas: Float32Array;
+  colors: Float32Array;
   sh: Float32Array;
 };
 
 const sigmoid = (x: number) => 1 / (1 + Math.exp(-x));
+
+const colorScaling = (color: number) => color * 0.282 + 0.5;
 
 /**
  * create new gaussian cloud from raw
@@ -30,19 +32,11 @@ export const createGaussianCloudFromRaw = (
     shDegree: raw.shDegree,
     antialiased: raw.antialiased,
     positions: floatVectorToFloatArray(wasmModule, raw.positions),
-    scales: floatVectorToFloatArray(wasmModule, raw.scales).map(Math.exp),
+    scales: floatVectorToFloatArray(wasmModule, raw.scales, Math.exp),
     rotations: floatVectorToFloatArray(wasmModule, raw.rotations),
-    alphas: new Uint8ClampedArray(
-      floatVectorToFloatArray(wasmModule, raw.alphas)
-        .map((n) => sigmoid(n) * 255.0)
-        .values(),
-    ),
-    colors: new Uint8ClampedArray(
-      floatVectorToFloatArray(wasmModule, raw.colors)
-        // HACK: colorScale is 0.282 or 0.15
-        .map((n) => (n * 0.282 + 0.5) * 255)
-        .values(),
-    ),
+    alphas: floatVectorToFloatArray(wasmModule, raw.alphas, sigmoid),
+    colors: floatVectorToFloatArray(wasmModule, raw.colors, colorScaling),
+    // FIXME: incorrect SH logic
     sh: floatVectorToFloatArray(wasmModule, raw.sh),
   };
 };
@@ -51,11 +45,14 @@ export const createGaussianCloudFromRaw = (
  * dispose raw gaussian cloud's vector from heap memory
  * @param raw raw gaussian cloud
  */
-export const disposeRawGSCloud = (raw: RawGaussianCloud): void => {
-  raw.positions.delete();
-  raw.scales.delete();
-  raw.rotations.delete();
-  raw.alphas.delete();
-  raw.colors.delete();
-  raw.sh.delete();
+export const disposeRawGSCloud = (
+  wasmModule: MainModule,
+  raw: RawGaussianCloud,
+): void => {
+  wasmModule._free(wasmModule.vf32_ptr(raw.positions));
+  wasmModule._free(wasmModule.vf32_ptr(raw.scales));
+  wasmModule._free(wasmModule.vf32_ptr(raw.rotations));
+  wasmModule._free(wasmModule.vf32_ptr(raw.alphas));
+  wasmModule._free(wasmModule.vf32_ptr(raw.colors));
+  wasmModule._free(wasmModule.vf32_ptr(raw.sh));
 };

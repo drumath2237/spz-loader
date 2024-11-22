@@ -2,7 +2,7 @@ import "./style.css";
 import { Engine, Scene } from "@babylonjs/core";
 import { createGaussianSplattingFromSpz } from "../lib/";
 
-import spzPath from "../../core/assets/guitarroom.spz?url";
+import spzPath from "../../core/lib/spz-wasm/spz/samples/racoonfamily.spz?url";
 
 const main = async () => {
   const renderCanvas =
@@ -16,11 +16,11 @@ const main = async () => {
 
   scene.createDefaultCameraOrLight(true, true, true);
 
-  const spzData = await fetch(spzPath).then((res) => res.arrayBuffer());
-  await createGaussianSplattingFromSpz(spzData);
-
   engine.runRenderLoop(() => scene.render());
   window.addEventListener("resize", () => engine.resize());
+
+  const spzData = await fetch(spzPath).then((res) => res.arrayBuffer());
+  await createGaussianSplattingFromSpz(spzData);
 };
 
 main();

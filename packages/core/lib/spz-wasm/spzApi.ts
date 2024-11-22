@@ -25,7 +25,7 @@ export const loadSpz = async (spzData: Uint8Array): Promise<GaussianCloud> => {
 
     const rawGsCloud = wasmModule.load_spz(pointer, spzData.length);
     const gaussianCloud = createGaussianCloudFromRaw(wasmModule, rawGsCloud);
-    disposeRawGSCloud(rawGsCloud);
+    disposeRawGSCloud(wasmModule, rawGsCloud);
 
     return gaussianCloud;
   } catch (error) {
