@@ -9,12 +9,13 @@ import type { MainModule, VectorFloat32, VectorUInt8T } from "./build/main";
 export const floatVectorToFloatArray = (
   wasmModule: MainModule,
   vec: VectorFloat32,
+  enhancementFunc: (n: number) => number = (n) => n,
 ): Float32Array => {
   const pointer = wasmModule.vf32_ptr(vec);
   const size = vec.size();
 
   const buffer = new Float32Array(wasmModule.HEAPF32.buffer, pointer, size);
-  const copiedBuffer = new Float32Array(buffer);
+  const copiedBuffer = buffer.map(enhancementFunc);
 
   return copiedBuffer;
 };

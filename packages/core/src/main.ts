@@ -8,9 +8,9 @@ const main = async () => {
     .then((res) => res.arrayBuffer())
     .then((buf) => new Uint8Array(buf));
 
-  const gsCloud = await loadSpz(spzDataBuffer);
+  await loadSpz(spzDataBuffer);
 
-  console.log(gsCloud);
+  console.log("done");
 };
 
 main();
