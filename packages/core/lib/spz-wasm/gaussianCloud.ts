@@ -32,14 +32,15 @@ export const createGaussianCloudFromRaw = (
     positions: floatVectorToFloatArray(wasmModule, raw.positions),
     scales: floatVectorToFloatArray(wasmModule, raw.scales).map(Math.exp),
     rotations: floatVectorToFloatArray(wasmModule, raw.rotations),
-    alphas: new Uint8Array(
+    alphas: new Uint8ClampedArray(
       floatVectorToFloatArray(wasmModule, raw.alphas)
         .map((n) => sigmoid(n) * 255.0)
         .values(),
     ),
-    colors: new Uint8Array(
+    colors: new Uint8ClampedArray(
       floatVectorToFloatArray(wasmModule, raw.colors)
-        .map((n) => (n * 0.15 + 0.5) * 255)
+        // HACK: colorScale is 0.282 or 0.15
+        .map((n) => (n * 0.282 + 0.5) * 255)
         .values(),
     ),
     sh: floatVectorToFloatArray(wasmModule, raw.sh),
