@@ -54,7 +54,7 @@ jobs:
           cd ./packages/core/lib/spz-wasm
           mkdir ./build
           em++ main.cpp \
-            -O3 \
+            -Oz \
             --closure 1 \
             --llvm-lto 1 \
             -fno-exceptions \

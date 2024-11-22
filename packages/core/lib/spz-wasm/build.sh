@@ -7,7 +7,7 @@ fi
 npm install -g typescript
 
 em++ main.cpp \
-  -O3 \
+  -Oz \
   --closure 1 \
   --llvm-lto 1 \
   -fno-exceptions \
