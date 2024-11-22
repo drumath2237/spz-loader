@@ -1,7 +1,7 @@
 import "./style.css";
 import { loadSpz } from "../lib/";
 
-import spzUrl from "../assets/guitarroom.spz?url";
+import spzUrl from "../lib/spz-wasm/spz/samples/racoonfamily.spz?url";
 
 const main = async () => {
   const spzDataBuffer = await fetch(spzUrl)
