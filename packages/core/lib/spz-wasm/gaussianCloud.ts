@@ -8,8 +8,8 @@ export type GaussianCloud = {
   positions: Float32Array;
   scales: Float32Array;
   rotations: Float32Array;
-  alphas: Uint8Array;
-  colors: Uint8Array;
+  alphas: Uint8ClampedArray;
+  colors: Uint8ClampedArray;
   sh: Float32Array;
 };
 
