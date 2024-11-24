@@ -2,7 +2,6 @@
   "name": "spz-loader",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "check": "pnpm -r --parallel run check",
     "check:write": "pnpm -r --parallel run check:write",
@@ -15,9 +14,7 @@
     "node": ">=16",
     "pnpm": ">=8"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@biomejs/biome": "1.9.4"
   }
