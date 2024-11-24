@@ -1,6 +1,37 @@
 {
   "name": "@spz-loader/core",
-  "private": true,
+  "description": ".spz Gaussian Splatting file loader",
+  "author": {
+    "name": "drumath2237",
+    "url": "https://github.com/drumath2237"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "spz",
+    "wasm",
+    "webassembly",
+    "emscripten",
+    "gaussian splatting",
+    "3dgs"
+  ],
+  "homepage": "https://github.com/drumath2237/spz-loader",
+  "repository": {
+    "url": "https://github.com/drumath2237/spz-loader",
+    "directory": "/packages/core",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/drumath2237/spz-loader/issues"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8"
+  },
   "version": "0.0.0",
   "type": "module",
   "files": [

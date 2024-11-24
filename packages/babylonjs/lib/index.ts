@@ -5,20 +5,26 @@ import {
   loadSpz,
 } from "@spz-loader/core";
 
+export interface ICreateGSFromSpzOptions {
+  colorScaleFactor?: number;
+  name?: string;
+  keepInRam?: boolean;
+}
+
 export const createGaussianSplattingFromSpz = async (
   data: ArrayBuffer,
-  options?: ILoadSpzOptions,
-  name?: string,
-  scene?: Scene,
-  keepInRam?: boolean,
+  scene: Scene,
+  options?: ICreateGSFromSpzOptions,
 ): Promise<GaussianSplattingMesh> => {
   const splat = new GaussianSplattingMesh(
-    name ?? "spz splat",
+    options?.name ?? "spz splat",
     null,
     scene,
-    keepInRam,
+    options?.keepInRam,
   );
-  const splatBuffer = await parseSpzToSplat(data, options);
+  const splatBuffer = await parseSpzToSplat(data, {
+    colorScaleFactor: options?.colorScaleFactor,
+  });
   await splat.loadDataAsync(splatBuffer);
   return splat;
 };
