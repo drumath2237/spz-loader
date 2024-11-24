@@ -20,7 +20,7 @@ const main = async () => {
   window.addEventListener("resize", () => engine.resize());
 
   const spzData = await fetch(spzPath).then((res) => res.arrayBuffer());
-  await createGaussianSplattingFromSpz(spzData);
+  await createGaussianSplattingFromSpz(spzData, scene);
 };
 
 main();

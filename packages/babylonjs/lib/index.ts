@@ -7,16 +7,16 @@ import {
 
 export const createGaussianSplattingFromSpz = async (
   data: ArrayBuffer,
+  scene: Scene,
   options?: ILoadSpzOptions,
   name?: string,
-  scene?: Scene,
-  keepInRam?: boolean,
+  keepInRam?: boolean
 ): Promise<GaussianSplattingMesh> => {
   const splat = new GaussianSplattingMesh(
     name ?? "spz splat",
     null,
     scene,
-    keepInRam,
+    keepInRam
   );
   const splatBuffer = await parseSpzToSplat(data, options);
   await splat.loadDataAsync(splatBuffer);
@@ -25,14 +25,14 @@ export const createGaussianSplattingFromSpz = async (
 
 export const parseSpzToSplat = async (
   data: ArrayBuffer,
-  options?: ILoadSpzOptions,
+  options?: ILoadSpzOptions
 ): Promise<ArrayBuffer> => {
   const gsCloud = await loadSpz(new Uint8Array(data), options);
   return _convertGaussianCloudToSplatBuffer(gsCloud);
 };
 
 const _convertGaussianCloudToSplatBuffer = (
-  gsCloud: GaussianCloud,
+  gsCloud: GaussianCloud
 ): ArrayBuffer => {
   // position(3*f32) + scale(3*f32) + color(4*u8) + rotation(4*u8)
   const rowOutputLength = 3 * 4 + 3 * 4 + 4 + 4;
