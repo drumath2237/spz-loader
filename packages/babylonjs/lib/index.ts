@@ -1,8 +1,13 @@
 import { GaussianSplattingMesh, type Scene } from "@babylonjs/core";
-import { type GaussianCloud, loadSpz } from "@spz-loader/core";
+import {
+  type GaussianCloud,
+  type ILoadSpzOptions,
+  loadSpz,
+} from "@spz-loader/core";
 
 export const createGaussianSplattingFromSpz = async (
   data: ArrayBuffer,
+  options?: ILoadSpzOptions,
   name?: string,
   scene?: Scene,
   keepInRam?: boolean,
@@ -13,15 +18,16 @@ export const createGaussianSplattingFromSpz = async (
     scene,
     keepInRam,
   );
-  const splatBuffer = await parseSpzToSplat(data);
+  const splatBuffer = await parseSpzToSplat(data, options);
   await splat.loadDataAsync(splatBuffer);
   return splat;
 };
 
 export const parseSpzToSplat = async (
   data: ArrayBuffer,
+  options?: ILoadSpzOptions,
 ): Promise<ArrayBuffer> => {
-  const gsCloud = await loadSpz(new Uint8Array(data));
+  const gsCloud = await loadSpz(new Uint8Array(data), options);
   return _convertGaussianCloudToSplatBuffer(gsCloud);
 };
 
