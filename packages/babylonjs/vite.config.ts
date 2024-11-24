@@ -3,13 +3,21 @@ import { resolve } from "node:path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
-export default defineConfig(({}) => {
+export default defineConfig(() => {
   return {
     build: {
       lib: {
         entry: "./lib/index.ts",
         name: "SpzWasmBabylonjs",
         fileName: "index",
+      },
+      rollupOptions: {
+        external: ["@babylonjs/core"],
+        output: {
+          globals: {
+            "@babylonjs/core": "BABYLON",
+          },
+        },
       },
     },
     plugins: [
