@@ -6,9 +6,9 @@ import {
 } from "@spz-loader/core";
 
 export interface ICreateGSFromSpzOptions {
-  colorScaleFactor: number;
-  name: string;
-  keepInRam: boolean;
+  colorScaleFactor?: number;
+  name?: string;
+  keepInRam?: boolean;
 }
 
 export const createGaussianSplattingFromSpz = async (
