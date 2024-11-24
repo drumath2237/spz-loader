@@ -41,5 +41,9 @@ export const loadSpz = async (
     return gaussianCloud;
   } catch (error) {
     throw error as Error;
+  } finally {
+    if (pointer !== null) {
+      wasmModule._free(pointer);
+    }
   }
 };
