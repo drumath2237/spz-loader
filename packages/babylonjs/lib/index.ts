@@ -14,13 +14,13 @@ export interface ICreateGSFromSpzOptions {
 export const createGaussianSplattingFromSpz = async (
   data: ArrayBuffer,
   scene: Scene,
-  options?: ICreateGSFromSpzOptions
+  options?: ICreateGSFromSpzOptions,
 ): Promise<GaussianSplattingMesh> => {
   const splat = new GaussianSplattingMesh(
     options?.name ?? "spz splat",
     null,
     scene,
-    options?.keepInRam
+    options?.keepInRam,
   );
   const splatBuffer = await parseSpzToSplat(data, {
     colorScaleFactor: options?.colorScaleFactor,
@@ -31,14 +31,14 @@ export const createGaussianSplattingFromSpz = async (
 
 export const parseSpzToSplat = async (
   data: ArrayBuffer,
-  options?: ILoadSpzOptions
+  options?: ILoadSpzOptions,
 ): Promise<ArrayBuffer> => {
   const gsCloud = await loadSpz(new Uint8Array(data), options);
   return _convertGaussianCloudToSplatBuffer(gsCloud);
 };
 
 const _convertGaussianCloudToSplatBuffer = (
-  gsCloud: GaussianCloud
+  gsCloud: GaussianCloud,
 ): ArrayBuffer => {
   // position(3*f32) + scale(3*f32) + color(4*u8) + rotation(4*u8)
   const rowOutputLength = 3 * 4 + 3 * 4 + 4 + 4;
