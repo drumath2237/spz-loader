@@ -15,7 +15,8 @@ export type GaussianCloud = {
 
 const sigmoid = (x: number) => 1 / (1 + Math.exp(-x));
 
-const colorScaling = (color: number) => color * 0.282 + 0.5;
+const colorScaleFactory = (scale: number) => (color: number) =>
+  color * scale + 0.5;
 
 /**
  * create new gaussian cloud from raw
@@ -26,7 +27,11 @@ const colorScaling = (color: number) => color * 0.282 + 0.5;
 export const createGaussianCloudFromRaw = (
   wasmModule: MainModule,
   raw: RawGaussianCloud,
+  options?: {
+    colorScaleFactor?: number;
+  },
 ): GaussianCloud => {
+  const colScale = options?.colorScaleFactor ?? 0.282;
   return {
     numPoints: raw.numPoints,
     shDegree: raw.shDegree,
@@ -35,7 +40,11 @@ export const createGaussianCloudFromRaw = (
     scales: floatVectorToFloatArray(wasmModule, raw.scales, Math.exp),
     rotations: floatVectorToFloatArray(wasmModule, raw.rotations),
     alphas: floatVectorToFloatArray(wasmModule, raw.alphas, sigmoid),
-    colors: floatVectorToFloatArray(wasmModule, raw.colors, colorScaling),
+    colors: floatVectorToFloatArray(
+      wasmModule,
+      raw.colors,
+      colorScaleFactory(colScale),
+    ),
     // FIXME: incorrect SH logic
     sh: floatVectorToFloatArray(wasmModule, raw.sh),
   };
