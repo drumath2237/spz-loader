@@ -21,6 +21,7 @@
     "check:write": "biome check --write ./lib ./src"
   },
   "devDependencies": {
+    "@babylonjs/core": "^7.35.1",
     "@biomejs/biome": "1.9.4",
     "@types/node": "^22.9.0",
     "typescript": "~5.6.3",
@@ -28,7 +29,6 @@
     "vite-plugin-dts": "^4.3.0"
   },
   "dependencies": {
-    "@babylonjs/core": "^7.34.3",
     "@spz-loader/core": "workspace:^"
   }
 }
