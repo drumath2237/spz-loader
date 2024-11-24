@@ -14,13 +14,13 @@ importers:
 
   packages/babylonjs:
     dependencies:
-      '@babylonjs/core':
-        specifier: ^7.34.3
-        version: 7.34.3
       '@spz-loader/core':
         specifier: workspace:^
         version: link:../core
     devDependencies:
+      '@babylonjs/core':
+        specifier: ^7.35.1
+        version: 7.35.1
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
@@ -74,8 +74,8 @@ packages:
     resolution: {integrity: sha512-Z/yiTPj+lDVnF7lWeKCIJzaIkI0vYO87dMpZ4bg4TDrFe4XXLFWL1TbXU27gBP3QccxV9mZICCrnjnYlJjXHOA==}
     engines: {node: '>=6.9.0'}
 
-  '@babylonjs/core@7.34.3':
-    resolution: {integrity: sha512-BIzrk5AoRiYqkADqX2dj7SXeK4GYqyYP5yoNSwQjr1A7SnkAIoNRKftfDTktcQ2syh0m8yNCd/pZJF+QFsYX8A==}
+  '@babylonjs/core@7.35.1':
+    resolution: {integrity: sha512-/KTRczb7WGfeeBbF6QEsari38IFBkKqlELys3GXMcBOjiP+XMLAxnsL49RJvidpN7ckvkEXOpa7fmgVHC/i0eQ==}
 
   '@biomejs/biome@1.9.4':
     resolution: {integrity: sha512-1rkd7G70+o9KkTn5KLmDYXihGoTaIGO9PIIN2ZB7UJxFrWw04CZHPYiMRjYsaDvVV7hP1dYNRLxSANLaBFGpog==}
@@ -760,7 +760,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@babylonjs/core@7.34.3': {}
+  '@babylonjs/core@7.35.1': {}
 
   '@biomejs/biome@1.9.4':
     optionalDependencies:
