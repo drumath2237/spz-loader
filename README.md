@@ -136,4 +136,38 @@ interface ILoadSpzOptions {
 
 ### Babylon.js
 
+#### function: `createGaussianSplattingFromSpz`
+
+Load spz file and create Gaussian Splatting object into Babylon.js scene.
+
+| args    | type                      | detail                   |
+| :------ | :------------------------ | :----------------------- |
+| data    | `ArrayBuffer`             | buffer of spz file       |
+| scene   | `Scene`                   | Babylon.js' scene object |
+| options | `ICreateGSFromSpzOptions` | load options             |
+
+| return type             | detail                                     |
+| :---------------------- | :----------------------------------------- |
+| `GaussianSplattingMesh` | Babylon.js' Gaussian Splatting mesh object |
+
+```ts
+createGaussianSplattingFromSpz: (data: ArrayBuffer, scene: Scene, options?: ICreateGSFromSpzOptions) => Promise<GaussianSplattingMesh>;
+```
+
+#### interface: `ICreateGSFromSpzOptions`
+
+| field            | type      | detail                                        |
+| :--------------- | :-------- | :-------------------------------------------- |
+| colorScaleFactor | `number`  | color scale for representing gaussian's color |
+| name             | `string`  | Gaussian Splatting Mesh objects's name        |
+| keepInRam        | `boolean` | keep datas in ram for editing purpose         |
+
+```ts
+interface ICreateGSFromSpzOptions {
+  colorScaleFactor?: number;
+  name?: string;
+  keepInRam?: boolean;
+}
+```
+
 ## Developing spz-loader
