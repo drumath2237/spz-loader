@@ -13,11 +13,15 @@
 
 ## About
 
-spz-loaderは、3D Gaussian Splatting のファイルフォーマットの一種である.spzをロードするためのnpmパッケージ群です。
-.spzフォーマットの詳細はNianticが公開している[ブログ記事](https://scaniverse.com/news/spz-gaussian-splat-open-source-file-format)や[GitHubリポジトリ](https://github.com/nianticlabs/spz)をご参照ください。
+<!-- spz-loaderは、3D Gaussian Splatting のファイルフォーマットの一種である.spzをロードするためのnpmパッケージ群です。
+.spzフォーマットの詳細はNianticが公開している[ブログ記事](https://scaniverse.com/news/spz-gaussian-splat-open-source-file-format)や[GitHubリポジトリ](https://github.com/nianticlabs/spz)をご参照ください。 -->
 
-spz-loaderは`nianticlabs/spz`をEmscriptenによってwasm化し、それを用いた純粋なデコード機能を有する`@spz-loader/core`と
-それに依存する各種プラットフォーム向けのローダパッケージを提供します。
+spz-loader is a set of npm packages for loading .spz, a type of 3D Gaussian Splatting file format. For more information on the .spz format, see [the blog post](https://scaniverse.com/news/spz-gaussian-splat-open-source-file-format) published by Niantic and the [GitHub repository](https://github.com/nianticlabs/spz).
+
+<!-- spz-loaderは`nianticlabs/spz`をEmscriptenによってwasm化し、それを用いた純粋なデコード機能を有する`@spz-loader/core`と
+それに依存する各種プラットフォーム向けのローダパッケージを提供します。 -->
+
+spz-loader provides `@spz-loader/core`, which is a pure decoding facility using `nianticlabs/spz` converted to wasm by Emscripten, and loader packages for various platforms that depend on it.
 
 ## Install & Usage
 
@@ -143,3 +147,7 @@ This command does follow:
 ```sh
 pnpm build:all
 ```
+
+## Author
+
+[@drumath2237](https://x.com/ninisan_drumath)
