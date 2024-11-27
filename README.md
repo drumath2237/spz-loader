@@ -1,14 +1,14 @@
 <p align="center">
   <h1 align="center">
-    <span style="font-size:5rem">🦎</span><br/>
-    spz-loader
+    🦎<br/>spz-loader
   </h1>
 </p>
 
 <p align="center">
-  <img src="https://github.com/drumath2237/spz-loader/actions/workflows/pr.yaml/badge.svg"/>
-  <img src="https://github.com/drumath2237/spz-loader/actions/workflows/pr.yaml/badge.svg"/>
-  <img src="https://github.com/drumath2237/spz-loader/actions/workflows/pr.yaml/badge.svg"/>
+  <img src="https://img.shields.io/badge/Node.js-v20-%235FA04E?logo=nodedotjs&logoColor=%235FA04E"/>
+  <img src="https://img.shields.io/badge/pnpm-v9-%23F69220?logo=pnpm&logoColor=%23F6922"/>
+  <img src="https://img.shields.io/badge/WebAssembly-Emscripten-%23654FF0?logo=webassembly&logoColor=white"/>
+  <img src="https://img.shields.io/github/license/drumath2237/spz-loader"/>
 </p>
 
 ## About
