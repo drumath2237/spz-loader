@@ -40,6 +40,13 @@ export const parseSpzToSplat = async (
 const _convertGaussianCloudToSplatBuffer = (
   gsCloud: GaussianCloud,
 ): ArrayBuffer => {
+  /**
+   * This section of the code is inspired by the implementation found in
+   * CedricGuillemet/Babylon.js, which is available under the Apache-2.0 License.
+   * See:
+   * https://github.com/CedricGuillemet/Babylon.js/blob/17f2f4a768e3dae50ccb1280f734522448879165/packages/dev/loaders/src/SPLAT/splatFileLoader.ts#L184-L308
+   */
+
   // position(3*f32) + scale(3*f32) + color(4*u8) + rotation(4*u8)
   const rowOutputLength = 3 * 4 + 3 * 4 + 4 + 4;
   const splatCount = gsCloud.numPoints;
