@@ -1,4 +1,15 @@
-# spz-loader
+<p align="center">
+  <h1 align="center">
+    <span style="font-size:5rem">🦎</span><br/>
+    spz-loader
+  </h1>
+</p>
+
+<p align="center">
+  <img src="https://github.com/drumath2237/spz-loader/actions/workflows/pr.yaml/badge.svg"/>
+  <img src="https://github.com/drumath2237/spz-loader/actions/workflows/pr.yaml/badge.svg"/>
+  <img src="https://github.com/drumath2237/spz-loader/actions/workflows/pr.yaml/badge.svg"/>
+</p>
 
 ## About
 
@@ -71,103 +82,64 @@ const splat = await loadSpz(spzBuffer);
 console.log(splat.numPoints);
 ```
 
-## APIs
-
-### Core
-
-#### type `GaussianCloud`
-
-Data type of Gaussian Splatting.
-
-| field       | type           | detail                                                          |
-| :---------- | :------------- | :-------------------------------------------------------------- |
-| numPoints   | `number`       | number of gaussian                                              |
-| shDegree    | `number`       | number of Sperical Harmonics degree                             |
-| antialiased | `boolean`      | is antialias enable                                             |
-| positions   | `Float32Array` | gaussian positions(length: numPoints x3)                        |
-| scales      | `Float32Array` | gaussian scales(length: numPoints x3)                           |
-| rotations   | `Float32Array` | gaussian rotations for quaternion(len: numPoints x4)            |
-| alphas      | `Float32Array` | gaussian alphas ranged 0-1 (length: numPoints x1)               |
-| colors      | `Float32Array` | gaussian colors ranged 0-1 (length: numPoints x3)               |
-| sh          | `Float32Array` | gaussian's spherical harmonics(**!!now, it's not supported!!**) |
-
-```ts
-type GaussianCloud = {
-  numPoints: number;
-  shDegree: number;
-  antialiased: boolean;
-  positions: Float32Array;
-  scales: Float32Array;
-  rotations: Float32Array;
-  alphas: Float32Array;
-  colors: Float32Array;
-  sh: Float32Array;
-}
-```
-
-#### function: `loadSpz`
-
-Load .spz file and decode it to Gaussian Cloud.
-
-| args    | type              | detail             |
-| :------ | :---------------- | :----------------- |
-| spzData | `Uint8Array`      | buffer of spz file |
-| options | `ILoadSpzOptions` | load options       |
-
-| return type     | detail                          |
-| :-------------- | :------------------------------ |
-| `GaussianCloud` | decoded Gaussian Splatting data |
-
-```ts
-const loadSpz: (spzData: Uint8Array, options?: ILoadSpzOptions)=> Promise<GaussianCloud>;
-```
-
-#### interface: `ILoadSpzOptions`
-
-| field            | type     | detail                                        |
-| :--------------- | :------- | :-------------------------------------------- |
-| colorScaleFactor | `number` | color scale for representing gaussian's color |
-
-```ts
-interface ILoadSpzOptions {
-  colorScaleFactor?: number;
-}
-```
-
-### Babylon.js
-
-#### function: `createGaussianSplattingFromSpz`
-
-Load spz file and create Gaussian Splatting object into Babylon.js scene.
-
-| args    | type                      | detail                   |
-| :------ | :------------------------ | :----------------------- |
-| data    | `ArrayBuffer`             | buffer of spz file       |
-| scene   | `Scene`                   | Babylon.js' scene object |
-| options | `ICreateGSFromSpzOptions` | load options             |
-
-| return type             | detail                                     |
-| :---------------------- | :----------------------------------------- |
-| `GaussianSplattingMesh` | Babylon.js' Gaussian Splatting mesh object |
-
-```ts
-createGaussianSplattingFromSpz: (data: ArrayBuffer, scene: Scene, options?: ICreateGSFromSpzOptions) => Promise<GaussianSplattingMesh>;
-```
-
-#### interface: `ICreateGSFromSpzOptions`
-
-| field            | type      | detail                                        |
-| :--------------- | :-------- | :-------------------------------------------- |
-| colorScaleFactor | `number`  | color scale for representing gaussian's color |
-| name             | `string`  | Gaussian Splatting Mesh objects's name        |
-| keepInRam        | `boolean` | keep datas in ram for editing purpose         |
-
-```ts
-interface ICreateGSFromSpzOptions {
-  colorScaleFactor?: number;
-  name?: string;
-  keepInRam?: boolean;
-}
-```
-
 ## Developing spz-loader
+
+### Environment
+
+Project author's local environment is below.
+
+- Windows 11 Home
+- Node.js 20.18.1
+- pnpm 9.14.2
+- Docker Desktop
+  - with VSCode dev container
+- Emscripten 3.1.72 (on docker)
+
+### Setup
+
+Clone this repo and submodule
+
+```sh
+git clone https://github.com/drumath2237/spz-loader.git
+
+git submodule update --init --recursive
+```
+
+Repository structure is below.
+spz-loader is a monorepo project setup by pnpm-workspace.
+
+```txt
+/
+├─ packages/
+│    ├─ core/
+│    │    └─ lib/
+│    │         ├─ spz-wasm/
+│    │         │    └─ spz/  <-- submodule
+│    │         ├─ build.sh
+│    │         └─ index.ts
+│    └─ babylonjs/
+│         └─ lib/
+│              └─ index.ts
+├─ package.json
+├─ pnpm-lock.yaml
+└─ pnpm-workspace.yaml
+```
+
+To install dependencies, you can run `pnpm install` on the root directory.
+
+```sh
+pnpm install
+```
+
+### Build packages
+
+Run build script `build:all`.
+This command does follow:
+
+1. Build spz(C++) to WebAssembly by Emscripten on a Docker container
+2. Build `@spz-loader/core` package by Vite library mode
+3. Build `@spz-loader/babylonjs` package by Vite library mode
+
+```sh
+pnpm build:all
+```
