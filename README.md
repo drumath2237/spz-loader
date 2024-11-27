@@ -119,7 +119,7 @@ Load .spz file and decode it to Gaussian Cloud.
 | `GaussianCloud` | decoded Gaussian Splatting data |
 
 ```ts
-const loadSpz: (spzData: Uint8Array, options?: ILoadSpzOptions): Promise<GaussianCloud>;
+const loadSpz: (spzData: Uint8Array, options?: ILoadSpzOptions)=> Promise<GaussianCloud>;
 ```
 
 #### interface: `ILoadSpzOptions`
