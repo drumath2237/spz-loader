@@ -1,0 +1,78 @@
+name: Release
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+env:
+  EM_VERSION: 3.1.72
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [20]
+    permissions:
+      contents: read
+      id-token: write
+    # releaseブランチからmainにPRがマージされたら
+    if: |
+      github.event.pull_request.merged == true
+      && startsWith(github.head_ref, 'release/v')
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: ${{env.EM_VERSION}}
+
+      - name: resolve git submodule
+        run: git submodule update --init --recursive
+
+      - name: Build spz wasm binary
+        run: |
+          cd ./packages/core/lib/spz-wasm
+          mkdir ./build
+          em++ main.cpp \
+            -Oz \
+            --closure 1 \
+            --llvm-lto 1 \
+            -fno-exceptions \
+            --std=c++17 \
+            -lembind \
+            --emit-tsd main.d.ts \
+            -o ./build/main.mjs \
+            -s USE_ZLIB=1 \
+            -s WASM=1 \
+            -s SINGLE_FILE=1 \
+            -s MODULARIZE=1 \
+            -s EXPORT_ES6=1 \
+            -s EXPORT_NAME="spzwasm" \
+            -s ALLOW_MEMORY_GROWTH \
+            -s EXPORTED_FUNCTIONS="['_malloc', '_free']"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish
+        run: pnpm publish:all
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
