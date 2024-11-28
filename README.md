@@ -8,8 +8,10 @@
   <img src="https://img.shields.io/badge/Node.js-v20-%235FA04E?logo=nodedotjs&logoColor=%235FA04E"/>
   <img src="https://img.shields.io/badge/pnpm-v9-%23F69220?logo=pnpm&logoColor=%23F6922"/>
   <img src="https://img.shields.io/badge/WebAssembly-Emscripten-%23654FF0?logo=webassembly&logoColor=white"/>
-  <img src="https://img.shields.io/github/license/drumath2237/spz-loader"/><br/>
+  <img src="https://img.shields.io/github/license/drumath2237/spz-loader"/>
+  <a href="https://x.com/ninisan_drumath"><img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/ninisan_drumath"></a>
   
+  <br/>
   <img align="center" src="./images/hornedlizard.gif"/>
 </p>
 
@@ -24,6 +26,17 @@ spz-loader is a set of npm packages for loading .spz, a type of 3D Gaussian Spla
 それに依存する各種プラットフォーム向けのローダパッケージを提供します。 -->
 
 spz-loader provides `@spz-loader/core`, which is a pure decoding facility using `nianticlabs/spz` converted to wasm by Emscripten, and loader packages for various platforms that depend on it.
+
+### Features
+
+- 🍱 decode .spz file into pure-JS Object
+- 🧩 integration to 3D engines (now, only Babylon.js)
+- 🥪 divided into core functionality and other features
+- ✨ wrapping official implementation through WebAssembly
+
+### Limitations
+
+- Spherical Harmonics (SH) is currently not supported
 
 ## Install & Usage
 
