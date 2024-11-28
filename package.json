@@ -8,7 +8,8 @@
     "build:vite": "pnpm -r run build",
     "build:wasm": "pnpm -F @spz-loader/core run build:docker",
     "build:all": "pnpm run build:wasm && pnpm run build:vite",
-    "build": "pnpm run build:vite"
+    "build": "pnpm run build:vite",
+    "version:set": "pnpm exec lerna version"
   },
   "engines": {
     "node": ">=16",
