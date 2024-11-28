@@ -10,7 +10,7 @@
     "build:all": "pnpm run build:wasm && pnpm run build:vite",
     "build": "pnpm run build:vite",
     "version:set": "pnpm exec lerna version",
-    "publish:all": "NPM_CONFIG_PROVENANCE=true pnpm publish --filter \"@spz-loader/*\" --access public --dry-run"
+    "publish:all": "NPM_CONFIG_PROVENANCE=true pnpm publish --dry-run --filter \"@spz-loader/*\" --access public"
   },
   "engines": {
     "node": ">=16",
