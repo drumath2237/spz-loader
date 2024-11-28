@@ -9,7 +9,8 @@
     "build:wasm": "pnpm -F @spz-loader/core run build:docker",
     "build:all": "pnpm run build:wasm && pnpm run build:vite",
     "build": "pnpm run build:vite",
-    "version:set": "pnpm exec lerna version"
+    "version:set": "pnpm exec lerna version",
+    "publish:all": "NPM_CONFIG_PROVENANCE=true pnpm publish --filter \"@spz-loader/*\" --access public --dry-run"
   },
   "engines": {
     "node": ">=16",
