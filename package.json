@@ -16,6 +16,8 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@biomejs/biome": "1.9.4"
+    "@biomejs/biome": "1.9.4",
+    "@lerna-lite/cli": "^3.10.0",
+    "@lerna-lite/version": "^3.10.0"
   }
 }
