@@ -5,7 +5,10 @@
 </p>
 
 <p align="center">
+  <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spz-loader%2Fcore?logo=npm">
   <a href="https://github.com/drumath2237/spz-loader/actions/workflows/release.yaml"><img src="https://github.com/drumath2237/spz-loader/actions/workflows/release.yaml/badge.svg"/></a>
+  <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40spz-loader%2Fcore?label=DL(core)">
+  <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40spz-loader%2Fbabylonjs?label=DL(babylonjs)">
   <img src="https://img.shields.io/badge/Node.js-v20-%235FA04E?logo=nodedotjs&logoColor=%235FA04E"/>
   <img src="https://img.shields.io/badge/pnpm-v9-%23F69220?logo=pnpm&logoColor=%23F6922"/>
   <img src="https://img.shields.io/badge/WebAssembly-Emscripten-%23654FF0?logo=webassembly&logoColor=white"/>
