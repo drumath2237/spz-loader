@@ -1,9 +1,9 @@
-import { Application, type Entity } from "playcanvas"
-import { convert } from "./convert"
-import { loadSpz } from "@spz-loader/core"
+import { loadSpz } from "@spz-loader/core";
+import { Application, type Entity } from "playcanvas";
+import { convert } from "./convert";
 
 type CreateGSplatOptionType = {
-  appId?: string,
+  appId?: string;
   splatMaterialOptions?: {
     /**
      * - Custom vertex shader, see SPLAT MANY example.
@@ -27,21 +27,24 @@ type CreateGSplatOptionType = {
      * - Opacity dithering enum.
      */
     dither?: string;
-  }
-}
+  };
+};
 
-const createGSplatEntityFromSpzAsync = async (spzBuffer: ArrayBuffer, option?: CreateGSplatOptionType): Promise<Entity> => {
-  const app = Application.getApplication(option?.appId)
+const createGSplatEntityFromSpzAsync = async (
+  spzBuffer: ArrayBuffer,
+  option?: CreateGSplatOptionType,
+): Promise<Entity> => {
+  const app = Application.getApplication(option?.appId);
   if (!app) {
-    throw new Error("cannot find any playcanvas application.")
+    throw new Error("cannot find any playcanvas application.");
   }
 
-  const gsCloud = await loadSpz(new Uint8Array(spzBuffer), { colorScaleFactor: 1.0 })
-  const gsResource = convert(gsCloud, app.graphicsDevice)
-  const gsEntity = gsResource.instantiate(option?.splatMaterialOptions)
-  return gsEntity
-}
+  const gsCloud = await loadSpz(new Uint8Array(spzBuffer), {
+    colorScaleFactor: 1.0,
+  });
+  const gsResource = convert(gsCloud, app.graphicsDevice);
+  const gsEntity = gsResource.instantiate(option?.splatMaterialOptions);
+  return gsEntity;
+};
 
-export {
-  createGSplatEntityFromSpzAsync
-}
+export { createGSplatEntityFromSpzAsync };
