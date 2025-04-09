@@ -1,0 +1,56 @@
+{
+  "name": "@spz-loader/playcanvas",
+  "description": ".spz GaussianSplatting loader for PlayCanvas Engine",
+  "author": {
+    "name": "drumath2237",
+    "url": "https://github.com/drumath2237"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["spz", "gaussian splatting", "3dgs", "PlayCanvas"],
+  "homepage": "https://github.com/drumath2237/spz-loader",
+  "repository": {
+    "url": "https://github.com/drumath2237/spz-loader",
+    "directory": "/packages/playcanvas",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/drumath2237/spz-loader/issues"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8"
+  },
+  "version": "0.1.0",
+  "type": "module",
+  "files": ["dist"],
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "types": "./index.d.ts",
+    "import": "./dist/index.js",
+    "require": "./dist/index.umd.cjs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "check": "biome check ./lib ./src",
+    "check:write": "biome check --write ./lib ./src"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.9.0",
+    "playcanvas": "^2.6.2",
+    "typescript": "~5.6.3",
+    "vite": "^5.4.9",
+    "vite-plugin-dts": "^4.3.0"
+  },
+  "dependencies": {
+    "@spz-loader/core": "workspace:^"
+  }
+}
