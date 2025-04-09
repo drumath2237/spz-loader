@@ -1,23 +1,16 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from '../lib/main'
+import "./style.css";
+import { add } from "../lib/";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+// import spzPath from "../../core/lib/spz-wasm/spz/samples/racoonfamily.spz?url";
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const main = async () => {
+  const renderCanvas =
+    document.querySelector<HTMLCanvasElement>("#renderCanvas");
+  if (!renderCanvas) {
+    return;
+  }
+
+  console.log(add(1, 2))
+};
+
+main();

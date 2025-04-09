@@ -1,11 +1,30 @@
-import { defineConfig } from 'vite'
+import { resolve } from "node:path";
 
-export default defineConfig({
-  build: {
-    lib: {
-      entry: './lib/main.ts',
-      name: 'Counter',
-      fileName: 'counter',
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+
+export default defineConfig(() => {
+  return {
+    build: {
+      lib: {
+        entry: "./lib/index.ts",
+        name: "SpzWasmPlayCanvas",
+        fileName: "index",
+      },
+      rollupOptions: {
+        // external: ["@babylonjs/core"],
+        // output: {
+        //   globals: {
+        //     "@babylonjs/core": "BABYLON",
+        //   },
+        // },
+      },
     },
-  },
-})
+    plugins: [
+      dts({
+        entryRoot: resolve(__dirname, "lib"),
+        include: resolve(__dirname, "lib"),
+      }),
+    ],
+  };
+});
