@@ -12,12 +12,12 @@ export default defineConfig(() => {
         fileName: "index",
       },
       rollupOptions: {
-        // external: ["@babylonjs/core"],
-        // output: {
-        //   globals: {
-        //     "@babylonjs/core": "BABYLON",
-        //   },
-        // },
+        external: ["playcanvas"],
+        output: {
+          globals: {
+            "playcanvas": "pc",
+          },
+        },
       },
     },
     plugins: [
