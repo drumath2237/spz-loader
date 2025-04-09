@@ -6,11 +6,11 @@
     "url": "https://github.com/drumath2237"
   },
   "license": "Apache-2.0",
-  "keywords": ["spz", "gaussian splatting", "3dgs", "babylonjs", "Babylon.js"],
+  "keywords": ["spz", "gaussian splatting", "3dgs", "PlayCanvas"],
   "homepage": "https://github.com/drumath2237/spz-loader",
   "repository": {
     "url": "https://github.com/drumath2237/spz-loader",
-    "directory": "/packages/babylonjs",
+    "directory": "/packages/playcanvas",
     "type": "git"
   },
   "bugs": {
@@ -45,6 +45,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/node": "^22.9.0",
+    "playcanvas": "^2.6.2",
     "typescript": "~5.6.3",
     "vite": "^5.4.9",
     "vite-plugin-dts": "^4.3.0"
