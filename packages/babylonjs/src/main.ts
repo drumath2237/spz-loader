@@ -19,7 +19,7 @@ const main = async () => {
   engine.runRenderLoop(() => scene.render());
   window.addEventListener("resize", () => engine.resize());
 
-  await createGaussianSplattingFromSpzUrl(spzPath, scene)
+  await createGaussianSplattingFromSpzUrl(spzPath, scene);
 };
 
 main();

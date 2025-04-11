@@ -30,10 +30,14 @@ type CreateGSplatOptionType = {
   };
 };
 
-const createGSplatEntityFromSpzUrlAsync = (url: string, option?: CreateGSplatOptionType) =>
-  fetch(url)
-    .then(res => res.arrayBuffer())
-    .then(data => createGSplatEntityFromSpzAsync(data, option))
+const createGSplatEntityFromSpzUrlAsync = (
+  url: string,
+  option?: CreateGSplatOptionType,
+) => {
+  return fetch(url)
+    .then((res) => res.arrayBuffer())
+    .then((data) => createGSplatEntityFromSpzAsync(data, option));
+};
 
 const createGSplatEntityFromSpzAsync = async (
   spzBuffer: ArrayBuffer,

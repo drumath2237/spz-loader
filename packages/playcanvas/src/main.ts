@@ -48,7 +48,7 @@ const main = async () => {
   light.setEulerAngles(15, 30, 0);
   app.root.addChild(light);
 
-  const spzEntity = await createGSplatEntityFromSpzUrlAsync(splatUrl)
+  const spzEntity = await createGSplatEntityFromSpzUrlAsync(splatUrl);
   app.root.addChild(spzEntity);
 };
 
