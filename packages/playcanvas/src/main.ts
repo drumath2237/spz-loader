@@ -11,7 +11,7 @@ import {
 // @ts-ignore
 import { CameraControls } from "playcanvas/scripts/esm/camera-controls.mjs";
 
-import { createGSplatEntityFromSpzAsync } from "../lib";
+import { createGSplatEntityFromSpzUrlAsync } from "../lib";
 
 import splatUrl from "../../core/lib/spz-wasm/spz/samples/racoonfamily.spz?url";
 
@@ -48,8 +48,7 @@ const main = async () => {
   light.setEulerAngles(15, 30, 0);
   app.root.addChild(light);
 
-  const spzBuffer = await fetch(splatUrl).then((res) => res.arrayBuffer());
-  const spzEntity = await createGSplatEntityFromSpzAsync(spzBuffer);
+  const spzEntity = await createGSplatEntityFromSpzUrlAsync(splatUrl);
   app.root.addChild(spzEntity);
 };
 
