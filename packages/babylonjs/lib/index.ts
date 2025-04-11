@@ -11,6 +11,12 @@ export interface ICreateGSFromSpzOptions {
   keepInRam?: boolean;
 }
 
+export const createGaussianSplattingFromSpzUrl = (url: string, scene: Scene, options?: ICreateGSFromSpzOptions) => {
+  return fetch(url)
+    .then(res => res.arrayBuffer())
+    .then(data => createGaussianSplattingFromSpz(data, scene, options))
+}
+
 export const createGaussianSplattingFromSpz = async (
   data: ArrayBuffer,
   scene: Scene,

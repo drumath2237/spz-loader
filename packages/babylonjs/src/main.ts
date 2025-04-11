@@ -1,6 +1,6 @@
 import "./style.css";
 import { Engine, Scene } from "@babylonjs/core";
-import { createGaussianSplattingFromSpz } from "../lib/";
+import { createGaussianSplattingFromSpzUrl } from "../lib/";
 
 import spzPath from "../../core/lib/spz-wasm/spz/samples/racoonfamily.spz?url";
 
@@ -19,8 +19,7 @@ const main = async () => {
   engine.runRenderLoop(() => scene.render());
   window.addEventListener("resize", () => engine.resize());
 
-  const spzData = await fetch(spzPath).then((res) => res.arrayBuffer());
-  await createGaussianSplattingFromSpz(spzData, scene);
+  await createGaussianSplattingFromSpzUrl(spzPath, scene)
 };
 
 main();
