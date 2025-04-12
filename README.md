@@ -7,8 +7,6 @@
 <p align="center">
   <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spz-loader%2Fcore?logo=npm">
   <a href="https://github.com/drumath2237/spz-loader/actions/workflows/release.yaml"><img src="https://github.com/drumath2237/spz-loader/actions/workflows/release.yaml/badge.svg"/></a>
-  <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40spz-loader%2Fcore?label=DL(core)">
-  <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40spz-loader%2Fbabylonjs?label=DL(babylonjs)">
   <img src="https://img.shields.io/badge/Node.js-v20-%235FA04E?logo=nodedotjs&logoColor=%235FA04E"/>
   <img src="https://img.shields.io/badge/pnpm-v9-%23F69220?logo=pnpm&logoColor=%23F6922"/>
   <img src="https://img.shields.io/badge/WebAssembly-Emscripten-%23654FF0?logo=webassembly&logoColor=white"/>
@@ -34,7 +32,7 @@ spz-loader provides `@spz-loader/core`, which is a pure decoding facility using 
 ### Features
 
 - 🍱 decode .spz file into pure-JS Object
-- 🧩 integration to 3D engines (now, only Babylon.js)
+- 🧩 integration to 3D engines (Babylon.js/PlayCanvas)
 - 🥪 divided into core functionality and other features
 - ✨ wrapping official implementation through WebAssembly
 
@@ -42,22 +40,30 @@ spz-loader provides `@spz-loader/core`, which is a pure decoding facility using 
 
 - Spherical Harmonics (SH) is currently not supported
 
+## Packages
+
+| package                                       | version                                                                                        | description                                           |
+| :-------------------------------------------- | :--------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
+| [core](./packages/core/README.md)             | <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spz-loader%2Fcore?logo=npm">       | core logics for decode .spz                           |
+| [babylonjs](./packages/babylonjs/README.md)   | <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spz-loader%2Fbabylonjs?logo=npm">  | integration for Babylon.js `GaussianSplattingMesh`    |
+| [playcanvas](./packages/playcanvas/README.md) | <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spz-loader%2Fplaycanvas?logo=npm"> | integration for PlayCanvas Engine and `GSplat` Entity |
+
+
 ## Install & Usage
 
-### For Web3D Engines (example for Babylon.js)
+### Example of Babylon.js
 
 Install like below. `@spz-loader/babylonjs` requires Babylon.js version 7 or later.
 
 ```sh
 # for npm
-npm i -D @babylonjs/core @spz-loader/babylonjs
+npm i @babylonjs/core @spz-loader/babylonjs
 
 # for pnpm
-pnpm add -D @babylonjs/core @spz-loader/babylonjs
+pnpm add @babylonjs/core @spz-loader/babylonjs
 ```
 
 Code example of ESModule or TypeScript.
-
 
 ```ts
 import "./style.css";
@@ -65,16 +71,12 @@ import "./style.css";
 import { Engine, Scene } from "@babylonjs/core";
 import { createGaussianSplattingFromSpz } from "@spz-loader/babylonjs";
 
-// .spz file path/url
 import spzPath from "../assets/hornedlizard.spz?url";
 
 const engine = new Engine(renderCanvas);
 const scene = new Scene(engine);
-
 // ...
-
-const spzBuffer = await fetch(spzPath).then((res) => res.arrayBuffer());
-const splat = await createGaussianSplattingFromSpz(spzBuffer, scene);
+const splat = await createGaussianSplattingFromSpzUrl(spzPath, scene);
 ```
 
 ### Core package
@@ -83,10 +85,10 @@ Install like below.
 
 ```sh
 # for npm
-npm i -D @spz-loader/core
+npm i @spz-loader/core
 
 # for pnpm
-pnpm add -D @spz-loader/core
+pnpm add @spz-loader/core
 ```
 
 Usage example of core package.
@@ -96,12 +98,7 @@ import { loadSpz } from "@spz-loader/core";
 
 import spzUrl from "../assets/racoonfamily.spz?url";
 
-const spzBuffer = await fetch(spzUrl)
-  .then((res) => res.arrayBuffer())
-  .then((buf) => new Uint8Array(buf));
-
-const splat = await loadSpz(spzBuffer);
-
+const splat = await loadSpzFromUrl(spzUrl);
 console.log(splat.numPoints);
 ```
 
@@ -140,7 +137,10 @@ spz-loader is a monorepo project setup by pnpm-workspace.
 │    │         │    └─ spz/  <-- submodule
 │    │         ├─ build.sh
 │    │         └─ index.ts
-│    └─ babylonjs/
+│    ├─ babylonjs/
+│    │    └─ lib/
+│    │         └─ index.ts
+│    └─ playcanvas/
 │         └─ lib/
 │              └─ index.ts
 ├─ package.json
