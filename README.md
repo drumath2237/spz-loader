@@ -42,11 +42,11 @@ spz-loader provides `@spz-loader/core`, which is a pure decoding facility using 
 
 ## Packages
 
-| package    | version | description                                        |
-| :--------- | :------ | :------------------------------------------------- |
-| core       | 0.1.0   | core logics for decode .spz                        |
-| babylonjs  | 0.1.0   | integration for Babylon.js `GaussianSplattingMesh` |
-| playcanvas | 0.1.0   | integration for PlayCanvas `GSplat` Entity         |
+| package                                       | version                                                                                        | description                                           |
+| :-------------------------------------------- | :--------------------------------------------------------------------------------------------- | :---------------------------------------------------- |
+| [core](./packages/core/README.md)             | <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spz-loader%2Fcore?logo=npm">       | core logics for decode .spz                           |
+| [babylonjs](./packages/babylonjs/README.md)   | <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spz-loader%2Fbabylonjs?logo=npm">  | integration for Babylon.js `GaussianSplattingMesh`    |
+| [playcanvas](./packages/playcanvas/README.md) | <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spz-loader%2Fplaycanvas?logo=npm"> | integration for PlayCanvas Engine and `GSplat` Entity |
 
 
 ## Install & Usage
