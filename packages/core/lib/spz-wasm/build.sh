@@ -22,4 +22,5 @@ em++ main.cpp \
   -s EXPORT_ES6=1 \
   -s EXPORT_NAME="spzwasm" \
   -s ALLOW_MEMORY_GROWTH \
-  -s EXPORTED_FUNCTIONS="['_malloc', '_free']"
+  -s EXPORTED_FUNCTIONS="['_malloc', '_free']" \
+  -s EXPORTED_RUNTIME_METHODS="['HEAPF32', 'HEAPU8']" 
