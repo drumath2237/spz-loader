@@ -1,4 +1,4 @@
-import { loadSpz } from "@spz-loader/core";
+import { loadSpz, UnpackOptions } from "@spz-loader/core";
 import { Application, type Entity } from "playcanvas";
 import { convert } from "./convert";
 
@@ -32,15 +32,17 @@ type CreateGSplatOptionType = {
 
 const createGSplatEntityFromSpzUrlAsync = (
   url: string,
+  spzUnpackOptions?: UnpackOptions,
   option?: CreateGSplatOptionType,
 ) => {
   return fetch(url)
     .then((res) => res.arrayBuffer())
-    .then((data) => createGSplatEntityFromSpzAsync(data, option));
+    .then((data) => createGSplatEntityFromSpzAsync(data, spzUnpackOptions, option));
 };
 
 const createGSplatEntityFromSpzAsync = async (
   spzBuffer: ArrayBuffer,
+  spzUnpackOptions?: UnpackOptions,
   option?: CreateGSplatOptionType,
 ): Promise<Entity> => {
   const app = Application.getApplication(option?.appId);
@@ -48,7 +50,7 @@ const createGSplatEntityFromSpzAsync = async (
     throw new Error("cannot find any playcanvas application.");
   }
 
-  const gsCloud = await loadSpz(new Uint8Array(spzBuffer), {
+  const gsCloud = await loadSpz(new Uint8Array(spzBuffer), spzUnpackOptions, {
     colorScaleFactor: 1.0,
   });
   const gsResource = convert(gsCloud, app.graphicsDevice);

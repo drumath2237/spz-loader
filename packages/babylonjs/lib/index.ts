@@ -2,6 +2,7 @@ import { GaussianSplattingMesh, type Scene } from "@babylonjs/core";
 import {
   type GaussianCloud,
   type ILoadSpzOptions,
+  type UnpackOptions,
   loadSpz,
 } from "@spz-loader/core";
 
@@ -14,16 +15,18 @@ export interface ICreateGSFromSpzOptions {
 export const createGaussianSplattingFromSpzUrl = (
   url: string,
   scene: Scene,
+  spzUnpackOptions?: UnpackOptions,
   options?: ICreateGSFromSpzOptions,
 ) => {
   return fetch(url)
     .then((res) => res.arrayBuffer())
-    .then((data) => createGaussianSplattingFromSpz(data, scene, options));
+    .then((data) => createGaussianSplattingFromSpz(data, scene, spzUnpackOptions, options));
 };
 
 export const createGaussianSplattingFromSpz = async (
   data: ArrayBuffer,
   scene: Scene,
+  spzUnpackOptions?: UnpackOptions,
   options?: ICreateGSFromSpzOptions,
 ): Promise<GaussianSplattingMesh> => {
   const splat = new GaussianSplattingMesh(
@@ -32,7 +35,8 @@ export const createGaussianSplattingFromSpz = async (
     scene,
     options?.keepInRam,
   );
-  const splatBuffer = await parseSpzToSplat(data, {
+  const splatBuffer = await parseSpzToSplat(data, 
+    spzUnpackOptions, {
     colorScaleFactor: options?.colorScaleFactor,
   });
   await splat.loadDataAsync(splatBuffer);
@@ -41,9 +45,10 @@ export const createGaussianSplattingFromSpz = async (
 
 export const parseSpzToSplat = async (
   data: ArrayBuffer,
+  spzUnpackOptions?: UnpackOptions,
   options?: ILoadSpzOptions,
 ): Promise<ArrayBuffer> => {
-  const gsCloud = await loadSpz(new Uint8Array(data), options);
+  const gsCloud = await loadSpz(new Uint8Array(data), spzUnpackOptions, options);
   return _convertGaussianCloudToSplatBuffer(gsCloud);
 };
 

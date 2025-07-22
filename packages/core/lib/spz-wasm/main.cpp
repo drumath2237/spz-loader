@@ -15,13 +15,11 @@ using namespace std;
 using namespace spz;
 using namespace emscripten;
 
-GaussianCloud load_spz(const int gsPtr, const int length)
+GaussianCloud load_spz(const int gsPtr, const int length, spz::UnpackOptions options)
 {
   auto pointer = (uint8_t *)gsPtr;
   auto spzBuffer = vector<uint8_t>(pointer, pointer + length);
-  auto gsCloud = spz::loadSpz(spzBuffer);
-  gsCloud.rotate180DegAboutX();
-
+  auto gsCloud = spz::loadSpz(spzBuffer, options);
   return gsCloud;
 }
 
@@ -48,4 +46,18 @@ EMSCRIPTEN_BINDINGS(my_module)
       .field("alphas", &GaussianCloud::alphas)
       .field("colors", &GaussianCloud::colors)
       .field("sh", &GaussianCloud::sh);
+
+  emscripten::enum_<spz::CoordinateSystem>("CoordinateSystem")
+      .value("UNSPECIFIED", spz::CoordinateSystem::UNSPECIFIED)
+      .value("LDB", spz::CoordinateSystem::LDB)
+      .value("RDB", spz::CoordinateSystem::RDB)
+      .value("LUB", spz::CoordinateSystem::LUB)
+      .value("RUB", spz::CoordinateSystem::RUB)
+      .value("LDF", spz::CoordinateSystem::LDF)
+      .value("RDF", spz::CoordinateSystem::RDF)
+      .value("LUF", spz::CoordinateSystem::LUF)
+      .value("RUF", spz::CoordinateSystem::RUF);
+
+  value_object<spz::UnpackOptions>("UnpackOptions")
+      .field("coordinateSystem", &spz::UnpackOptions::to);
 }
