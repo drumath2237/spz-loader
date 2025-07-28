@@ -5,7 +5,9 @@ import spzUrl from "../lib/spz-wasm/spz/samples/racoonfamily.spz?url";
 
 const main = async () => {
   await loadSpzFromUrl(spzUrl, {
-    coordinateSystem: CoordinateSystem.UNSPECIFIED,
+    spzUnpackOptions: {
+      coordinateSystem: CoordinateSystem.UNSPECIFIED,
+    },
   });
 
   console.log("done");

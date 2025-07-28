@@ -2,12 +2,14 @@ import { GaussianSplattingMesh, type Scene } from "@babylonjs/core";
 import {
   type GaussianCloud,
   type ILoadSpzOptions,
-  type UnpackOptions,
+  CoordinateSystemEnum,
+  CoordinateSystem,
   loadSpz,
 } from "@spz-loader/core";
 
 export interface ICreateGSFromSpzOptions {
   colorScaleFactor?: number;
+  coordinateSystem?: CoordinateSystemEnum;
   name?: string;
   keepInRam?: boolean;
 }
@@ -15,18 +17,16 @@ export interface ICreateGSFromSpzOptions {
 export const createGaussianSplattingFromSpzUrl = (
   url: string,
   scene: Scene,
-  spzUnpackOptions?: UnpackOptions,
   options?: ICreateGSFromSpzOptions,
 ) => {
   return fetch(url)
     .then((res) => res.arrayBuffer())
-    .then((data) => createGaussianSplattingFromSpz(data, scene, spzUnpackOptions, options));
+    .then((data) => createGaussianSplattingFromSpz(data, scene, options));
 };
 
 export const createGaussianSplattingFromSpz = async (
   data: ArrayBuffer,
   scene: Scene,
-  spzUnpackOptions?: UnpackOptions,
   options?: ICreateGSFromSpzOptions,
 ): Promise<GaussianSplattingMesh> => {
   const splat = new GaussianSplattingMesh(
@@ -35,9 +35,12 @@ export const createGaussianSplattingFromSpz = async (
     scene,
     options?.keepInRam,
   );
-  const splatBuffer = await parseSpzToSplat(data, 
-    spzUnpackOptions, {
+  const splatBuffer = await parseSpzToSplat(data, {
     colorScaleFactor: options?.colorScaleFactor,
+    spzUnpackOptions: {
+      // Use the specified coordinate system or default to UNSPECIFIED
+      coordinateSystem: options?.coordinateSystem ?? CoordinateSystem.UNSPECIFIED,
+    },
   });
   await splat.loadDataAsync(splatBuffer);
   return splat;
@@ -45,10 +48,9 @@ export const createGaussianSplattingFromSpz = async (
 
 export const parseSpzToSplat = async (
   data: ArrayBuffer,
-  spzUnpackOptions?: UnpackOptions,
   options?: ILoadSpzOptions,
 ): Promise<ArrayBuffer> => {
-  const gsCloud = await loadSpz(new Uint8Array(data), spzUnpackOptions, options);
+  const gsCloud = await loadSpz(new Uint8Array(data), options);
   return _convertGaussianCloudToSplatBuffer(gsCloud);
 };
 
