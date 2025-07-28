@@ -38,7 +38,6 @@ export const createGaussianSplattingFromSpz = async (
   const splatBuffer = await parseSpzToSplat(data, {
     colorScaleFactor: options?.colorScaleFactor,
     spzUnpackOptions: {
-      // Use the specified coordinate system or default to UNSPECIFIED
       coordinateSystem: options?.coordinateSystem ?? CoordinateSystem.UNSPECIFIED,
     },
   });
