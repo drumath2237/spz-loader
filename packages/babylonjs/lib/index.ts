@@ -1,7 +1,6 @@
 import { GaussianSplattingMesh, type Scene } from "@babylonjs/core";
 import {
-  CoordinateSystem,
-  type CoordinateSystemEnum,
+  type CoordinateSystemUnion,
   type GaussianCloud,
   type ILoadSpzOptions,
   loadSpz,
@@ -9,7 +8,7 @@ import {
 
 export interface ICreateGSFromSpzOptions {
   colorScaleFactor?: number;
-  coordinateSystem?: CoordinateSystemEnum;
+  coordinateSystem?: CoordinateSystemUnion;
   name?: string;
   keepInRam?: boolean;
 }
@@ -37,9 +36,8 @@ export const createGaussianSplattingFromSpz = async (
   );
   const splatBuffer = await parseSpzToSplat(data, {
     colorScaleFactor: options?.colorScaleFactor,
-    spzUnpackOptions: {
-      coordinateSystem:
-        options?.coordinateSystem ?? CoordinateSystem.UNSPECIFIED,
+    unpackOptions: {
+      coordinateSystem: options?.coordinateSystem ?? "UNSPECIFIED",
     },
   });
   await splat.loadDataAsync(splatBuffer);

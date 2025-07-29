@@ -1,30 +1,19 @@
 import MainModuleFactory from "./build/main";
-import type { CoordinateSystemValue, UnpackOptions } from "./build/main";
+import type { MainModule } from "./build/main";
 import {
   type GaussianCloud,
   createGaussianCloudFromRaw,
   disposeRawGSCloud,
 } from "./gaussianCloud";
 
+type CoordinateSystemUnion = keyof MainModule["CoordinateSystem"];
+
 interface ILoadSpzOptions {
   colorScaleFactor?: number;
-  spzUnpackOptions?: UnpackOptions;
+  unpackOptions?: {
+    coordinateSystem?: CoordinateSystemUnion;
+  };
 }
-
-export const CoordinateSystem = {
-  UNSPECIFIED: { value: 0 } as CoordinateSystemValue<0>,
-  LDB: { value: 1 } as CoordinateSystemValue<1>,
-  RDB: { value: 2 } as CoordinateSystemValue<2>,
-  LUB: { value: 3 } as CoordinateSystemValue<3>,
-  RUB: { value: 4 } as CoordinateSystemValue<4>,
-  LDF: { value: 5 } as CoordinateSystemValue<5>,
-  RDF: { value: 6 } as CoordinateSystemValue<6>,
-  LUF: { value: 7 } as CoordinateSystemValue<7>,
-  RUF: { value: 8 } as CoordinateSystemValue<8>,
-} satisfies Record<string, CoordinateSystemValue<number>>;
-
-export type CoordinateSystemEnum =
-  (typeof CoordinateSystem)[keyof typeof CoordinateSystem];
 
 /**
  * decode .spz data to GaussianCloud
@@ -52,15 +41,15 @@ const loadSpz = async (
 
     wasmModule.HEAPU8.set(spzBuffer, pointer / Uint8Array.BYTES_PER_ELEMENT);
 
-    const spzUnpackOptions = options?.spzUnpackOptions ?? {
-      coordinateSystem: wasmModule.CoordinateSystem.UNSPECIFIED,
-    };
+    const coordinateSystem =
+      wasmModule.CoordinateSystem[
+        options?.unpackOptions?.coordinateSystem ?? "UNSPECIFIED"
+      ];
 
-    const rawGsCloud = wasmModule.load_spz(
-      pointer,
-      spzBuffer.length,
-      spzUnpackOptions,
-    );
+    const rawGsCloud = wasmModule.load_spz(pointer, spzBuffer.length, {
+      coordinateSystem,
+    });
+
     const gaussianCloud = createGaussianCloudFromRaw(
       wasmModule,
       rawGsCloud,
@@ -87,4 +76,9 @@ const loadSpzFromUrl = (
     .then((data) => loadSpz(data, options));
 };
 
-export { type ILoadSpzOptions, loadSpz, loadSpzFromUrl };
+export {
+  type ILoadSpzOptions,
+  loadSpz,
+  loadSpzFromUrl,
+  type CoordinateSystemUnion,
+};
