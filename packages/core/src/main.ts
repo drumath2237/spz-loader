@@ -1,5 +1,5 @@
 import "./style.css";
-import { loadSpzFromUrl, CoordinateSystem } from "../lib/";
+import { CoordinateSystem, loadSpzFromUrl } from "../lib/";
 
 import spzUrl from "../lib/spz-wasm/spz/samples/racoonfamily.spz?url";
 
