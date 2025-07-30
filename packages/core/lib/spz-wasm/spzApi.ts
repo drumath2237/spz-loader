@@ -1,12 +1,18 @@
 import MainModuleFactory from "./build/main";
+import type { MainModule } from "./build/main";
 import {
   type GaussianCloud,
   createGaussianCloudFromRaw,
   disposeRawGSCloud,
 } from "./gaussianCloud";
 
+type CoordinateSystemUnion = keyof MainModule["CoordinateSystem"];
+
 interface ILoadSpzOptions {
   colorScaleFactor?: number;
+  unpackOptions?: {
+    coordinateSystem?: CoordinateSystemUnion;
+  };
 }
 
 /**
@@ -30,12 +36,20 @@ const loadSpz = async (
       Uint8Array.BYTES_PER_ELEMENT * spzBuffer.length,
     );
     if (pointer === null) {
-      throw new Error("could'nt allocate memory");
+      throw new Error("couldn't allocate memory");
     }
 
     wasmModule.HEAPU8.set(spzBuffer, pointer / Uint8Array.BYTES_PER_ELEMENT);
 
-    const rawGsCloud = wasmModule.load_spz(pointer, spzBuffer.length);
+    const coordinateSystem =
+      wasmModule.CoordinateSystem[
+        options?.unpackOptions?.coordinateSystem ?? "UNSPECIFIED"
+      ];
+
+    const rawGsCloud = wasmModule.load_spz(pointer, spzBuffer.length, {
+      coordinateSystem,
+    });
+
     const gaussianCloud = createGaussianCloudFromRaw(
       wasmModule,
       rawGsCloud,
@@ -62,4 +76,9 @@ const loadSpzFromUrl = (
     .then((data) => loadSpz(data, options));
 };
 
-export { type ILoadSpzOptions, loadSpz, loadSpzFromUrl };
+export {
+  type ILoadSpzOptions,
+  loadSpz,
+  loadSpzFromUrl,
+  type CoordinateSystemUnion,
+};
