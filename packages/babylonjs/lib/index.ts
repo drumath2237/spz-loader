@@ -8,7 +8,9 @@ import {
 
 export interface ICreateGSFromSpzOptions {
   colorScaleFactor?: number;
-  coordinateSystem?: CoordinateSystemUnion;
+  unpackOptions?: {
+    coordinateSystem?: CoordinateSystemUnion;
+  };
   name?: string;
   keepInRam?: boolean;
 }
