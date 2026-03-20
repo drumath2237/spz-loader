@@ -16,7 +16,10 @@ export const floatVectorToFloatArray = (
   const size = vec.size();
   const floatOffset = pointer >> 2;
 
-  const copiedBuffer = wasmModule.HEAPF32.slice(floatOffset, floatOffset + size);
+  const copiedBuffer = wasmModule.HEAPF32.slice(
+    floatOffset,
+    floatOffset + size,
+  );
 
   if (enhancementFunc !== undefined) {
     for (let i = 0; i < size; i++) {
