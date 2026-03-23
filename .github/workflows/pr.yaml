@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [22]
+        node-version: [24]
     steps:
       - uses: actions/checkout@v5
 
@@ -28,7 +28,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Check Lint and Format
         run: pnpm check
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [22]
+        node-version: [24]
     steps:
       - uses: actions/checkout@v5
 
@@ -62,7 +62,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build:all
