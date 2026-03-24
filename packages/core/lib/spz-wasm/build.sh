@@ -4,7 +4,7 @@ if [ ! -d build ]; then
   mkdir build
 fi
 
-npm install -g typescript
+npm install -g typescript@5
 
 em++ main.cpp \
   -Oz \
